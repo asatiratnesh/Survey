@@ -1,0 +1,101 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Simple Sidebar - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Survey App</div>
+      <div class="list-group list-group-flush">
+        {% if user.is_authenticated %}
+          {% if request.user.is_superuser %}
+            <a href="{% url 'organization' %}" class="list-group-item list-group-item-action bg-light">Organization</a>
+            <a href="{% url 'profile' %}" class="list-group-item list-group-item-action bg-light">Profile</a>
+            <a href="{% url 'signup' %}" class="list-group-item list-group-item-action bg-light">Employee</a>
+            <a href="{% url 'questList' %}" class="list-group-item list-group-item-action bg-light">Questions</a>
+            <a href="{% url 'surveyList' %}" class="list-group-item list-group-item-action bg-light">Survey</a>
+          {% else %}
+            <a href="{% url 'profile' %}" class="list-group-item list-group-item-action bg-light">Profile</a>
+            <a href="{% url 'surveyListEmployee' %}" class="list-group-item list-group-item-action bg-light">Your Survey</a>
+          {% endif %}
+        {% endif %}
+
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <a id="menu-toggle"><i class="fa fa-bars"></i> </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            {% if user.is_authenticated %}
+              <li class="nav-item active">
+                <p>Welcome, {{ user.get_username }}</p>
+              </li>
+              <li class="nav-item active">
+                <a href="{% url 'logout' %}">Logout</a>
+              </li>
+            {% else %}
+              <li class="nav-item active">
+                  <a href="{% url 'login' %}">Login</a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+          {% block content %}
+          {% endblock %}
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>

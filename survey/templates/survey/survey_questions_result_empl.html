@@ -1,0 +1,33 @@
+{% extends 'survey/base.html' %}
+{% load cutom_tags %}
+{% block content %}
+    <h5>Your Survey Answers</h5>
+        <div class="card">
+            <ul class="list-group">
+                {% for question in survey_result_quest %}
+                    <li class="list-group-item">{{question.question}}<br>
+                        Answer: <strong>{{ question.answer }}</strong>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="pagination pagination-lg">
+                <span class="step-links">
+                    {% if survey_result_quest.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ survey_result_quest.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ survey_result_quest.number }} of {{ survey_result_quest.paginator.num_pages }}.
+                    </span>
+
+                    {% if survey_result_quest.has_next %}
+                        <a href="?page={{ survey_result_quest.next_page_number }}">next</a>
+                        <a href="?page={{ survey_result_quest.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+      </div>
+{% endblock %}

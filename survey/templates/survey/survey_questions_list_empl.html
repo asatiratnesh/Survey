@@ -1,0 +1,43 @@
+{% extends 'survey/base.html' %}
+{% load cutom_tags %}
+{% block content %}
+    <h5>Questions in Survey</h5>
+    <form class="form-horizontal" method="post" action="{% url 'saveSurveyAnswers'  survey_id %}">
+      {% csrf_token %}
+        <div class="card">
+            <ul class="list-group">
+                {% if survey_questions_list %}
+                    {% for question in survey_questions_list %}
+                    <li class="list-group-item">{{question.question_id}}<br>
+                        {% if answer_list|in_result:question.question_id_id %}
+                            {% for answer in answer_list|in_result:question.question_id_id%}
+                                Answer: <strong>{{ answer.answer }}</strong>
+                            {% endfor %}
+                        {% else %}
+                            {% if choices|in_category:question.question_id_id %}
+                                <ol>
+                                {% for choice in choices|in_category:question.question_id_id%}
+                                    <li><label><input type="radio" name="{{question.question_id_id}}" value="{{ choice }}"> {{choice}}</label></li>
+                                {% endfor %}
+                                </ol>
+                            {% else %}
+                                <input type="text" name="{{question.question_id_id}}" class="form-control" placeholder="Enter answer">
+                            {% endif %}
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                {% else %}
+                    <li class="list-group-item">Survey does't have questions</li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary" name="save" value="save">Submit</button>
+          <button type="submit" class="btn btn-primary" name="save" value="finish">Finish</button>
+
+        </div>
+      </div>
+    </form>
+
+{% endblock %}

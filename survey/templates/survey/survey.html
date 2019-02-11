@@ -1,0 +1,18 @@
+{% extends 'survey/base.html' %}
+
+{% block content %}
+    <a class="btn btn-primary" href="{% url 'addSurvey' %}">Add Survey</a>
+    <br></br>
+    <div class="card">
+        <ul class="list-group">
+            {% for survey in survey_list %}
+                <li class="list-group-item">
+                    <a href="{% url 'surveyQuest' survey.id %}"> {{ survey.name }}</a>
+                    <a href="{% url 'deleteSurvey' survey.id %}"><span class="fa fa-trash text-right" style="float:right"></span></a>
+                    <a href="{% url 'assignSurvey' survey.id %}"><span class="fa fa-share text-right" style="float:right"></span></a>
+
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

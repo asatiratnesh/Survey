@@ -1,0 +1,52 @@
+{% extends 'survey/base.html' %}
+
+{% block content %}
+    <br></br>
+<div class="row">
+    <div class="col-md-4">
+        <h6>Your Assigned Survey</h6>
+        <div class="card">
+            <ul class="list-group">
+                {% if survey_list_assign_empl %}
+                    {% for survey in survey_list_assign_empl %}
+                        <li class="list-group-item">
+                            <a href="{% url 'surveyQuestEmployee' survey.survey_id_id %}"> {{ survey.survey_id }}</a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <h6>Your Pending Survey</h6>
+        <div class="card">
+            <ul class="list-group">
+                {% if survey_list_pending_empl %}
+                    {% for survey in survey_list_pending_empl %}
+                        <li class="list-group-item">
+                            <a href="{% url 'surveyQuestEmployee' survey.survey_id_id %}"> {{ survey.survey_id }}</a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <h6>Your Completed Survey</h6>
+        <div class="card">
+            <ul class="list-group">
+                {% if survey_list_complete_empl %}
+                    {% for survey in survey_list_complete_empl %}
+                        <li class="list-group-item">
+                            <a href="{% url 'surveyQuestResultEmployee' survey.survey_id_id %}"> {{ survey.survey_id }}</a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

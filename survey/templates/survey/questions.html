@@ -1,0 +1,16 @@
+{% extends 'survey/base.html' %}
+
+{% block content %}
+    <a class="btn btn-primary" href="{% url 'addQuest' %}">Add Questions</a>
+    <br></br>
+    <div class="card">
+        <ul class="list-group">
+            {% for question in questions_list %}
+                <li class="list-group-item">{{ question.title }}
+                    <a href="{% url 'deleteQuestion' question.id %}"><span class="fa fa-trash text-right" style="float:right"></span></a>
+                    <!--<a href="#"><span class="fa fa-pencil-square-o text-right" style="float:right"></span></a>-->
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
