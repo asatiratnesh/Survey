@@ -33,4 +33,6 @@ urlpatterns = [
     url(r'(?P<survey_id>[0-9]+)/saveSurveyAnswers/$', views.saveSurveyAnswers, name='saveSurveyAnswers'),
     url(r'(?P<survey_id>[0-9]+)/surveyQuestResultEmployee/$', views.surveyQuestResultEmployee, name='surveyQuestResultEmployee'),
 
+    url(r'^(?P<org_id>[0-9]+)/deleteOrg/$', views.deleteOrg, name='deleteOrg'),
+
 ]

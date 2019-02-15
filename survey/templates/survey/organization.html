@@ -16,4 +16,15 @@
         </div>
       </div>
     </form>
+
+    <h5>List of Employee to Assigned Survey</h5>
+    <div class="card">
+        <ul class="list-group">
+            {% for org in org_list %}
+                <li class="list-group-item">{{ org }}
+                    <a href="{% url 'deleteOrg' org.id %}"><span class="fa fa-trash text-right" style="float:right"></span></a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

@@ -76,8 +76,14 @@ def organization(request):
         organization.save()
         return redirect('organization')
     else:
-        return render(request, 'survey/organization.html')
+        org_list = Organization.objects.all()
+        return render(request, 'survey/organization.html', {"org_list": org_list})
 
+
+def deleteOrg(request, org_id):
+    org = get_object_or_404(Organization, pk=org_id)
+    org.delete()
+    return redirect('organization')
 
 @user_passes_test(lambda u: u.is_superuser)
 @login_required(login_url='login')
