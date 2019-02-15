@@ -5,19 +5,19 @@
   <form class="form-horizontal" method="POST" action="{% url 'organization' %}">
       {% csrf_token %}
       <div class="form-group">
-        <label class="control-label col-sm-4" >Organization Name</label>
+        <label class="control-label col-sm-4" >Add Organization</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="org_name">
+          <input type="text" class="form-control" name="org_name" placeholder="Enter organization name">
         </div>
       </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Save</button>
         </div>
       </div>
     </form>
 
-    <h5>List of Employee to Assigned Survey</h5>
+    <h5>Organization List</h5>
     <div class="card">
         <ul class="list-group">
             {% for org in org_list %}

@@ -1,0 +1,18 @@
+{% extends 'survey/base.html' %}
+
+{% block content %}
+    <a class="btn btn-primary" href="{% url 'signup' %}">Add Employee</a>
+
+    <h5>List of Employee</h5>
+    <div class="card">
+        <ul class="list-group">
+            {% for user in users %}
+                <li class="list-group-item">{{ user }}
+                    <a href="{% url 'deleteEmpl' user.id %}">
+                        <span class="fa fa-trash text-right" style="float:right"></span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

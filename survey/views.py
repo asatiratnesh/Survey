@@ -32,6 +32,7 @@ def index(request):
 @login_required(login_url='login')
 def signup(request):
     if request.method == 'POST':
+        print("dsffds ++++")
         form = SignupForm(request.POST)
         if form.is_valid():
             try:
@@ -59,12 +60,27 @@ def signup(request):
             except:
                 return HttpResponse('Email address not found...')
             finally:
-                return redirect('profile')
+                return redirect('emplList')
 
-    else:
-        form = SignupForm()
-        org_list = Organization.objects.all()
+    form = SignupForm()
+    org_list = Organization.objects.all()
+    print("dsffds +++##$$$")
     return render(request, 'survey/signup.html', {'form': form, 'org_list': org_list})
+
+
+@user_passes_test(lambda u: u.is_superuser)
+@login_required(login_url='login')
+def emplList(request):
+    users = User.objects.all()
+    return render(request, 'survey/employeesList.html', {'users': users})
+
+
+@user_passes_test(lambda u: u.is_superuser)
+@login_required(login_url='login')
+def deleteEmpl(request, empl_id):
+    user = get_object_or_404(User, pk=empl_id)
+    user.delete()
+    return redirect('emplList')
 
 
 @user_passes_test(lambda u: u.is_superuser)

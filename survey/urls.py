@@ -12,7 +12,8 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('organization/', views.organization, name='organization'),
 
-    # path('profile/', views.update_profile, name='profile'),
+    path('emplList/', views.emplList, name='emplList'),
+    url(r'^(?P<empl_id>[0-9]+)/deleteEmpl/$', views.deleteEmpl, name='deleteEmpl'),
     path('profile/', views.update_profile, name='profile'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.activate, name='activate'),
