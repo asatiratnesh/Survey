@@ -85,6 +85,7 @@ def deleteOrg(request, org_id):
     org.delete()
     return redirect('organization')
 
+
 @user_passes_test(lambda u: u.is_superuser)
 @login_required(login_url='login')
 def activate(request, uidb64, token):

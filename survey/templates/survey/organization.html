@@ -22,7 +22,9 @@
         <ul class="list-group">
             {% for org in org_list %}
                 <li class="list-group-item">{{ org }}
-                    <a href="{% url 'deleteOrg' org.id %}"><span class="fa fa-trash text-right" style="float:right"></span></a>
+                    <a href="{% url 'deleteOrg' org.id %}">
+                        <span class="fa fa-trash text-right" style="float:right"></span>
+                    </a>
                 </li>
             {% endfor %}
         </ul>

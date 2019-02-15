@@ -27,12 +27,10 @@ urlpatterns = [
     url(r'^(?P<survey_id>[0-9]+)/assignSurvey/$', views.assignSurvey, name='assignSurvey'),
     url(r'^(?P<survey_id>[0-9]+)/deleteSurvey/$', views.deleteSurvey, name='deleteSurvey'),
     path('saveAssignSurvey/', views.saveAssignSurvey, name='saveAssignSurvey'),
-
     path('surveyListEmployee', views.surveyListEmployee, name='surveyListEmployee'),
     url(r'(?P<survey_id>[0-9]+)/surveyQuestEmployee/$', views.surveyQuestEmployee, name='surveyQuestEmployee'),
     url(r'(?P<survey_id>[0-9]+)/saveSurveyAnswers/$', views.saveSurveyAnswers, name='saveSurveyAnswers'),
     url(r'(?P<survey_id>[0-9]+)/surveyQuestResultEmployee/$', views.surveyQuestResultEmployee, name='surveyQuestResultEmployee'),
-
     url(r'^(?P<org_id>[0-9]+)/deleteOrg/$', views.deleteOrg, name='deleteOrg'),
 
 ]
