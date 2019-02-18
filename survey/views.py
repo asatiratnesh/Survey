@@ -17,6 +17,7 @@ from .forms import UserForm, ProfileForm, SignupForm
 from django.core.mail import EmailMessage
 from . import models
 from django.core.paginator import Paginator
+from django.contrib import messages
 
 @login_required(login_url='login')
 def index(request):
@@ -60,11 +61,11 @@ def signup(request):
             except:
                 return HttpResponse('Email address not found...')
             finally:
+                messages.success(request, 'Saved successfully!')
                 return redirect('emplList')
 
     form = SignupForm()
     org_list = Organization.objects.all()
-    print("dsffds +++##$$$")
     return render(request, 'survey/signup.html', {'form': form, 'org_list': org_list})
 
 
@@ -80,6 +81,7 @@ def emplList(request):
 def deleteEmpl(request, empl_id):
     user = get_object_or_404(User, pk=empl_id)
     user.delete()
+    messages.success(request, 'Deleted successfully!')
     return redirect('emplList')
 
 
@@ -90,6 +92,7 @@ def organization(request):
         organization = Organization()
         organization.name = request.POST['org_name']
         organization.save()
+        messages.success(request, 'Saved successfully!')
         return redirect('organization')
     else:
         org_list = Organization.objects.all()
@@ -99,6 +102,7 @@ def organization(request):
 def deleteOrg(request, org_id):
     org = get_object_or_404(Organization, pk=org_id)
     org.delete()
+    messages.success(request, 'Deleted successfully!')
     return redirect('organization')
 
 
@@ -133,7 +137,6 @@ def update_profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            # messages.success(request, _('Your profile was successfully updated!'))
             return render(request, 'survey/index.html')
         else:
             # messages.error(request, _('Please correct the error below.'))
@@ -160,6 +163,7 @@ class AddQuest(ListView):
     model = models.Questions_library
     template_name = 'survey/add_questions.html'
 
+
 @login_required(login_url='login')
 def saveQuest(request):
     if request.method == 'POST':
@@ -174,7 +178,7 @@ def saveQuest(request):
                 ques_c.questions = quest
                 ques_c.choice = x
                 ques_c.save()
-
+        messages.success(request, 'Added successfully!')
         return redirect('questList')
 
 
@@ -184,6 +188,7 @@ def deleteQuestion(request, quest_id):
     print(id)
     questions_library = get_object_or_404(Questions_library, pk=quest_id)
     questions_library.delete()
+    messages.success(request, 'Deleted successfully!')
     return redirect('questList')
 
 
@@ -222,7 +227,7 @@ def saveSurvey(request):
                 SurveyQuesMapObj.survey_id = surveyObj
                 SurveyQuesMapObj.question_id = get_object_or_404(Questions_library, pk=quest_id)
                 SurveyQuesMapObj.save()
-
+        messages.success(request, 'Added successfully!')
         return redirect('surveyList')
 
 
@@ -232,6 +237,7 @@ def deleteSurvey(request, survey_id):
     print(id)
     surveyObj = get_object_or_404(Survey, pk=survey_id)
     surveyObj.delete()
+    messages.success(request, 'Deleted successfully!')
     return redirect('surveyList')
 
 
@@ -240,6 +246,7 @@ def deleteSurvey(request, survey_id):
 def assignSurvey(request, survey_id):
     user_list = User.objects.filter(is_superuser=False)
     print(len(user_list))
+    messages.success(request, 'Survey Assign successfully!')
     return render(request, 'survey/survey_assign.html', {"user_list": user_list, "survey_id": survey_id})
 
 
@@ -268,7 +275,7 @@ def saveAssignSurvey(request):
                     print("Email error")
                 finally:
                     return redirect('surveyList')
-
+    messages.success(request, 'Saved successfully!')
     return redirect('surveyList')
 
 
@@ -364,7 +371,7 @@ def saveSurveyAnswers(request, survey_id):
             #         else:
             #             surveyResultObj.answer_status = False
             #         surveyResultObj.save()
-
+    messages.success(request, 'Submitted successfully!')
     return redirect('surveyListEmployee')
 
 

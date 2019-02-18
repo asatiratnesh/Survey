@@ -1,6 +1,7 @@
 {% extends 'survey/base.html' %}
 {% load cutom_tags %}
 {% block content %}
+
     <h5>Questions in Survey</h5>
     <form class="form-horizontal" method="post" action="{% url 'saveSurveyAnswers'  survey_id %}">
       {% csrf_token %}
