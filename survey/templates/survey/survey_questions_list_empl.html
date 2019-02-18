@@ -11,7 +11,7 @@
                     <li class="list-group-item">{{question.question_id}}<br>
                         {% if answer_list|in_result:question.question_id_id %}
                             {% for answer in answer_list|in_result:question.question_id_id%}
-                                Answer: <strong>{{ answer.answer }}</strong>
+                                Answer:  <input type="text" name="{{question.question_id_id}}" class="form-control" value="{{answer}}" readonly>
                             {% endfor %}
                         {% else %}
                             {% if choices|in_category:question.question_id_id %}

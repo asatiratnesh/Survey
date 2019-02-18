@@ -307,7 +307,6 @@ def surveyQuestEmployee(request, survey_id):
     choices = ques_choices.objects.filter(questions_id__in=question_ids)
 
     answer_list = Survey_Result.objects.filter(question_id__in=question_ids, survey_id=survey_id, empl_id=User.objects.get(id=request.user.id))
-    print(answer_list)
     # paginator = Paginator(survey_questions_list, 3)
     # page = request.GET.get('page')
     # survey_questions = paginator.get_page(page)
@@ -321,21 +320,50 @@ def surveyQuestEmployee(request, survey_id):
 def saveSurveyAnswers(request, survey_id):
     for name in request.POST:
         if name != "csrfmiddlewaretoken" and name != "save":
-            isRecord = Survey_Result.objects.filter(survey=Survey.objects.get(id=survey_id),
-                                                    empl=User.objects.get(id=request.user.id),
-                                                    question=Questions_library.objects.get(id=name))
-            if not isRecord:
+
+
+            if request.POST["save"] == "finish":
+                print(name)
+                isRecord = Survey_Result.objects.filter(survey=Survey.objects.get(id=survey_id),
+                                                        empl=User.objects.get(id=request.user.id),
+                                                        question=Questions_library.objects.get(id=name))
+                print("77")
+                if isRecord:
+                    print("44")
+                    isRecord.update(answer_status='True')
+                else:
+                    print("445447")
+                    if request.POST[name]:
+                        person, created = Survey_Result.objects.get_or_create(survey=Survey.objects.get(id=survey_id),
+                                                                      empl=User.objects.get(id=request.user.id),
+                                                                      question=Questions_library.objects.get(id=name),
+                                                                      defaults={"answer": request.POST[name], "answer_status": True})
+                        if created:
+                            print("fint cr")
+                        else:
+                            print("finish up")
+            else:
                 if request.POST[name]:
-                    surveyResultObj = Survey_Result()
-                    surveyResultObj.survey = Survey.objects.get(id=survey_id)
-                    surveyResultObj.empl = User.objects.get(id=request.user.id)
-                    surveyResultObj.question = Questions_library.objects.get(id=name)
-                    surveyResultObj.answer = request.POST[name]
-                    if request.POST["save"] == "finish":
-                        surveyResultObj.answer_status = True
+                    person, created = Survey_Result.objects.get_or_create(survey=Survey.objects.get(id=survey_id),
+                                                              empl=User.objects.get(id=request.user.id),
+                                                              question=Questions_library.objects.get(id=name),
+                                                              defaults={"answer": request.POST[name], "answer_status": False})
+                    if created:
+                        print("creaf")
                     else:
-                        surveyResultObj.answer_status = False
-                    surveyResultObj.save()
+                        print(444)
+            # if not isRecord:
+            #     if request.POST[name]:
+            #         surveyResultObj = Survey_Result()
+            #         surveyResultObj.survey = Survey.objects.get(id=survey_id)
+            #         surveyResultObj.empl = User.objects.get(id=request.user.id)
+            #         surveyResultObj.question = Questions_library.objects.get(id=name)
+            #         surveyResultObj.answer = request.POST[name]
+            #         if request.POST["save"] == "finish":
+            #             surveyResultObj.answer_status = True
+            #         else:
+            #             surveyResultObj.answer_status = False
+            #         surveyResultObj.save()
 
     return redirect('surveyListEmployee')
 
