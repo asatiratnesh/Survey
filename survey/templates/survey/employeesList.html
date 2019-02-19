@@ -14,10 +14,11 @@
     <div class="card">
         <ul class="list-group">
             {% for user in users %}
-                <li class="list-group-item">{{ user }}
-                    <a href="{% url 'deleteEmpl' user.id %}">
-                        <span class="fa fa-trash text-right" style="float:right"></span>
-                    </a>
+                <li class="list-group-item">{{ user }}, {{ user.email }}
+                    <div class="text-right" style="float: right;">
+                        <a href="{% url 'editEmpl' user.id %}"><span class="fa fa-pencil text-right" ></span></a>
+                        <a href="{% url 'deleteEmpl' user.id %}"><span class="fa fa-trash text-right text-danger"></span></a>
+                    </div>
                 </li>
             {% endfor %}
         </ul>

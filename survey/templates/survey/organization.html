@@ -12,7 +12,7 @@
       {% csrf_token %}
       <div class="form-group">
         <label class="control-label col-sm-4" >Add Organization</label>
-        <div class="col-sm-10">
+        <div class="col-sm-12">
           <input type="text" class="form-control" name="org_name" placeholder="Enter organization name">
         </div>
       </div>
@@ -27,12 +27,50 @@
     <div class="card">
         <ul class="list-group">
             {% for org in org_list %}
-                <li class="list-group-item">{{ org }}
-                    <a href="{% url 'deleteOrg' org.id %}">
-                        <span class="fa fa-trash text-right" style="float:right"></span>
-                    </a>
+                <li class="list-group-item" data-id="{{ org.id }}" data-name="{{ org }}">{{ org }}
+                    <div class="text-right" style="float: right;">
+                        <a href="#" id="edit-btn" data-toggle="modal" data-target="#edit"><span class="fa fa-pencil text-right" ></span></a>
+                        <a href="{% url 'deleteOrg' org.id %}"><span class="fa fa-trash text-right text-danger"></span></a>
+                    </div>
                 </li>
             {% endfor %}
         </ul>
     </div>
+
+<!-- Modal -->
+      <div class="modal fade" id="edit" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Update Question</h5>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="" id="edit-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="org_id" name="org_id">
+                        <label class="control-label col-sm-2" >Title:</label>
+                        <div class="col-sm-12">
+                          <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" style="float:right">Close</button>
+                </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+<script>
+    $('.fa-pencil').click(function(){
+        quest_id = $(this).parent().parent().parent().attr('data-id')
+        quest_title = $(this).parent().parent().parent().attr('data-name')
+        $('#edit-form #org_id').val(quest_id);
+        $('#edit-form #name').val(quest_title);
+        $('#edit-form').attr('action', "{% url 'updateOrg' %}");
+    });
+</script>
 {% endblock %}

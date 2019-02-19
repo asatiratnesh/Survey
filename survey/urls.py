@@ -11,8 +11,11 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='survey/logged_out.html'), name='logout'),
     path('signup/', views.signup, name='signup'),
     path('organization/', views.organization, name='organization'),
+    path('updateOrg/', views.updateOrg, name='updateOrg'),
 
     path('emplList/', views.emplList, name='emplList'),
+    url(r'^(?P<empl_id>[0-9]+)/updateEmpl/$', views.updateEmpl, name='updateEmpl'),
+    url(r'^(?P<empl_id>[0-9]+)/editEmpl/$', views.editEmpl, name='editEmpl'),
     url(r'^(?P<empl_id>[0-9]+)/deleteEmpl/$', views.deleteEmpl, name='deleteEmpl'),
     path('profile/', views.update_profile, name='profile'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
@@ -20,6 +23,8 @@ urlpatterns = [
     url(r'^questList', views.questList, name='questList'),
     url(r'^addQuest', views.AddQuest.as_view(), name='addQuest'),
     path('saveQuest/', views.saveQuest, name='saveQuest'),
+    path('updateQuest/', views.updateQuest, name='updateQuest'),
+
     url(r'^(?P<quest_id>[0-9]+)/delete_question/$', views.deleteQuestion, name='deleteQuestion'),
     path('surveyList', views.surveyList, name='surveyList'),
     url(r'^addSurvey', views.addSurvey, name='addSurvey'),

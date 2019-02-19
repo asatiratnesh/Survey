@@ -47,3 +47,6 @@ body {
     margin-left: -15rem;
   }
 }
+.list-group-item a{
+    padding: 0 5px;
+}

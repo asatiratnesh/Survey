@@ -78,6 +78,23 @@ def emplList(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 @login_required(login_url='login')
+def editEmpl(request, empl_id):
+    email = User.objects.only('email').get(pk=empl_id).email
+    org_list = Organization.objects.all()
+    return render(request, 'survey/edit_employee.html', {"empl_id": empl_id, 'email': email, 'org_list': org_list})
+
+
+@user_passes_test(lambda u: u.is_superuser)
+@login_required(login_url='login')
+def updateEmpl(request, empl_id):
+    User.objects.filter(pk=empl_id).update(email=request.POST['email'])
+    Profile.objects.filter(user=empl_id).update(organization=request.POST['org'])
+    messages.success(request, 'Updated successfully!')
+    return redirect('emplList')
+
+
+@user_passes_test(lambda u: u.is_superuser)
+@login_required(login_url='login')
 def deleteEmpl(request, empl_id):
     user = get_object_or_404(User, pk=empl_id)
     user.delete()
@@ -97,6 +114,14 @@ def organization(request):
     else:
         org_list = Organization.objects.all()
         return render(request, 'survey/organization.html', {"org_list": org_list})
+
+
+@user_passes_test(lambda u: u.is_superuser)
+@login_required(login_url='login')
+def updateOrg(request):
+    Organization.objects.filter(id=request.POST['org_id']).update(name=request.POST['name'])
+    messages.success(request, 'Updated successfully!')
+    return redirect('organization')
 
 
 def deleteOrg(request, org_id):
@@ -184,6 +209,14 @@ def saveQuest(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 @login_required(login_url='login')
+def updateQuest(request):
+    Questions_library.objects.filter(id=request.POST['quest_id']).update(title=request.POST['title'])
+    messages.success(request, 'Updated successfully!')
+    return redirect('questList')
+
+
+@user_passes_test(lambda u: u.is_superuser)
+@login_required(login_url='login')
 def deleteQuestion(request, quest_id):
     print(id)
     questions_library = get_object_or_404(Questions_library, pk=quest_id)
@@ -265,16 +298,13 @@ def saveAssignSurvey(request):
                 userObj = get_object_or_404(User, pk=employee_id)
                 to_email = userObj.email
                 try:
-                    print("sed")
-                    email_body = "Hi, \n Your Survey Link\n"+request.build_absolute_uri('/')[:-1].strip("/")+"/"+request.POST['survey_id']+"/surveyQuestEmployee/"
+                    email_body = "Hi, \nYour Survey Link: "+request.build_absolute_uri('/')[:-1].strip("/")+"/"+request.POST['survey_id']+"/surveyQuestEmployee/"
                     email = EmailMessage(
                         'Survey Assign', email_body, to=[to_email]
                     )
                     email.send()
-                except:
-                    print("Email error")
-                finally:
-                    return redirect('surveyList')
+                except Exception as e:
+                    print(e)
     messages.success(request, 'Saved successfully!')
     return redirect('surveyList')
 
@@ -330,35 +360,24 @@ def saveSurveyAnswers(request, survey_id):
 
 
             if request.POST["save"] == "finish":
-                print(name)
                 isRecord = Survey_Result.objects.filter(survey=Survey.objects.get(id=survey_id),
                                                         empl=User.objects.get(id=request.user.id),
                                                         question=Questions_library.objects.get(id=name))
-                print("77")
                 if isRecord:
-                    print("44")
                     isRecord.update(answer_status='True')
                 else:
-                    print("445447")
                     if request.POST[name]:
                         person, created = Survey_Result.objects.get_or_create(survey=Survey.objects.get(id=survey_id),
                                                                       empl=User.objects.get(id=request.user.id),
                                                                       question=Questions_library.objects.get(id=name),
                                                                       defaults={"answer": request.POST[name], "answer_status": True})
-                        if created:
-                            print("fint cr")
-                        else:
-                            print("finish up")
             else:
                 if request.POST[name]:
                     person, created = Survey_Result.objects.get_or_create(survey=Survey.objects.get(id=survey_id),
                                                               empl=User.objects.get(id=request.user.id),
                                                               question=Questions_library.objects.get(id=name),
                                                               defaults={"answer": request.POST[name], "answer_status": False})
-                    if created:
-                        print("creaf")
-                    else:
-                        print(444)
+
             # if not isRecord:
             #     if request.POST[name]:
             #         surveyResultObj = Survey_Result()
@@ -371,6 +390,18 @@ def saveSurveyAnswers(request, survey_id):
             #         else:
             #             surveyResultObj.answer_status = False
             #         surveyResultObj.save()
+    try:
+        employee = User.objects.get(id=request.user.id)
+        email_body = "Hi, \nThank you for completing your Survey \n\nYour completed survey Link: " + request.build_absolute_uri(
+            '/')[:-1].strip("/") + "/" + \
+                     survey_id + "/surveyQuestResultEmployee/"
+        print(email_body)
+        email = EmailMessage(
+            'Survey Completed', email_body, to=[employee.email]
+        )
+        email.send()
+    except Exception as e:
+        print(e)
     messages.success(request, 'Submitted successfully!')
     return redirect('surveyListEmployee')
 
@@ -378,7 +409,7 @@ def saveSurveyAnswers(request, survey_id):
 @login_required(login_url='login')
 def surveyQuestResultEmployee(request, survey_id):
     survey_result_quest = Survey_Result.objects.filter(survey=survey_id, empl=User.objects.get(id=request.user.id))
-    paginator = Paginator(survey_result_quest, 5)
+    paginator = Paginator(survey_result_quest, 4)
     page = request.GET.get('page')
     result_quest = paginator.get_page(page)
     return render(request, "survey/survey_questions_result_empl.html", {"survey_result_quest": result_quest})
