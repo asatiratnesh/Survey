@@ -82,7 +82,7 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'survey_system_db',
+        'NAME': 'survey_enhance_db',
         'USER': 'postgres',
         'PASSWORD': 'Test_1234',
         'HOST': 'localhost',
@@ -111,8 +111,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'ratneshasati93@gmail.com'
-EMAIL_HOST_PASSWORD = 'asatimadhu'
+EMAIL_HOST_USER = 'asatiratnesh88@gmail.com'
+EMAIL_HOST_PASSWORD = 'rajesh.asati'
 EMAIL_PORT = 587
 
 # Internationalization
@@ -137,3 +137,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = '/'
+
+AUTH_USER_MODEL = 'survey.User'

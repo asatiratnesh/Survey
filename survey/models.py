@@ -1,26 +1,7 @@
-from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    organization = models.CharField(max_length=120, blank=True)
-    location = models.CharField(max_length=50, blank=True)
-
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
 
 
 # survey app models
@@ -33,19 +14,16 @@ class Organization(models.Model):
         return self.name
 
 
+class User(AbstractUser):
+    is_org_admin = models.BooleanField(default=False)
+    is_employee = models.BooleanField(default=False)
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE, null=True)
+
+
 class Questions_library(models.Model):
-    TEXT = 'text'
-    RADIO = 'radio'
-    SELECT = 'select'
-    SELECT_MULTIPLE = 'select-multiple'
-    QUESTION_TYPES = (
-        (TEXT, 'text'),
-        (RADIO, 'radio'),
-        (SELECT, 'select'),
-        (SELECT_MULTIPLE, 'Select Multiple'),
-         )
-    type = models.CharField(max_length=200, choices=QUESTION_TYPES, default=TEXT)
+    type = models.CharField(max_length=2)
     title = models.CharField(max_length=256)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -59,6 +37,7 @@ class Questions_library(models.Model):
 class ques_choices(models.Model):
     questions = models.ForeignKey(Questions_library, on_delete=models.CASCADE)
     choice = models.CharField(max_length=256)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -68,6 +47,7 @@ class ques_choices(models.Model):
 
 class Survey(models.Model):
     name = models.CharField(max_length=200)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -78,6 +58,7 @@ class Survey(models.Model):
 class Survey_QuesMap(models.Model):
     survey_id = models.ForeignKey(Survey, on_delete=models.CASCADE)
     question_id = models.ForeignKey(Questions_library, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
