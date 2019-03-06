@@ -39,4 +39,5 @@ urlpatterns = [
     url(r'(?P<survey_id>[0-9]+)/surveyQuestResultEmployee/$', views.surveyQuestResultEmployee, name='surveyQuestResultEmployee'),
     url(r'^(?P<org_id>[0-9]+)/deleteOrg/$', views.deleteOrg, name='deleteOrg'),
 
+    url(r'^uploadEmplCSV/$', views.uploadEmplCSV, name='uploadEmplCSV'),
 ]

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+import datetime
 # Create your models here.
 
 
@@ -47,6 +47,8 @@ class ques_choices(models.Model):
 
 class Survey(models.Model):
     name = models.CharField(max_length=200)
+    s_date = models.DateField()
+    e_date = models.DateField()
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

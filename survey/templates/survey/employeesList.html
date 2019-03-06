@@ -2,14 +2,18 @@
 
 {% block content %}
 {% if messages %}
-    <div class="alert alert-success">
+    <div class="alert alert-warning">
         {% for message in messages %}
-            <strong>Success!</strong> {{ message }}
+           {{ message }}
         {% endfor %}
     </div>
 {% endif %}
     <a class="btn btn-primary" href="{% url 'signup' %}">Add Employee</a>
-
+    {% if user.is_authenticated %}
+          {% if request.user.is_org_admin %}
+        <button class="btn btn-primary" data-toggle="modal" data-target="#add_empl_model">Add Bulk Employees (CSV)</button>
+        {% endif %}
+    {% endif %}
     <h5>List of Employee</h5>
     <div class="card">
         <ul class="list-group">
@@ -22,5 +26,38 @@
                 </li>
             {% endfor %}
         </ul>
+    </div>
+
+    <div class="modal" id="add_empl_model">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Add Bulk Employee</h4>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form class="form-horizontal" method="post" action="{% url 'uploadEmplCSV' %}" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <label class="control-label col-sm-12" >Select CSV File:</label>
+                    <div class="col-sm-12">
+                      <input type="file" class="form-control" name="empl_csv">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+
+          </div>
+        </div>
     </div>
 {% endblock %}

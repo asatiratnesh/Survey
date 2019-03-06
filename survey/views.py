@@ -1,7 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
-from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.encoding import force_bytes, force_text
@@ -16,7 +15,11 @@ from . import models
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.http import QueryDict
+
 User = get_user_model()
+
+
 @login_required(login_url='login')
 def index(request):
     return render(request, 'survey/index.html')
@@ -27,6 +30,7 @@ def index(request):
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
+        print(form)
         if form.is_valid():
             try:
                 userObj = form.save(commit=False)
@@ -35,25 +39,11 @@ def signup(request):
                     print("+++++++++++++++111111")
                     userObj.is_org_admin = True
                     print(get_object_or_404(Organization, pk=request.POST['organization']))
-
                     userObj.organization = get_object_or_404(Organization, pk=request.POST['organization'])
                 elif request.user.is_org_admin:
                     userObj.is_employee = True
                     userObj.organization = request.user.organization
                 userObj.save()
-                # current_site = get_current_site(request)
-                # mail_subject = 'Activate your blog account.'
-                # message = render_to_string('survey/acc_active_email.html', {
-                #     'user': user,
-                #     'domain': current_site.domain,
-                #     'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode(),
-                #     'token': account_activation_token.make_token(user),
-                # })
-                # to_email = form.cleaned_data.get('email')
-                # email = EmailMessage(
-                #             mail_subject, message, to=[to_email]
-                # )
-                # email.send()
 
             except Exception as e:
                 messages.error(request, 'Error!!!')
@@ -63,6 +53,57 @@ def signup(request):
     form = SignupForm()
     org_list = Organization.objects.all()
     return render(request, 'survey/signup.html', {'form': form, 'org_list': org_list})
+
+
+@user_passes_test(lambda u: u.is_org_admin)
+@login_required(login_url='login')
+def uploadEmplCSV(request):
+    try:
+        csv_file = request.FILES["empl_csv"]
+        if not csv_file.name.endswith('.csv'):
+            messages.error(request, 'File is not CSV type')
+            return redirect('emplList')
+        # if file is too large, return
+        if csv_file.multiple_chunks():
+            messages.error(request, "Uploaded file is too big (%.2f MB)." % (csv_file.size / (1000 * 1000),))
+            return redirect('emplList')
+
+        file_data = csv_file.read().decode("utf-8")
+        lines = file_data.split("\r\n")
+        formSubmitMsg = True
+        # loop over the lines and save them in db. If error , store as string and then display
+        for line in lines:
+            fields = line.split(",")
+            data_dict = {}
+            data_dict["csrfmiddlewaretoken"] = request.POST['csrfmiddlewaretoken']
+            data_dict["username"] = fields[0]
+            data_dict["email"] = fields[1]
+            data_dict["password1"] = fields[2]
+            data_dict["password2"] = fields[2]
+
+            qdict = QueryDict('', mutable=True)
+            qdict.update(data_dict)
+            form = SignupForm(qdict)
+            if form.is_valid():
+                userObj = form.save(commit=False)
+                userObj.is_active = True
+                userObj.is_employee = True
+                userObj.organization = request.user.organization
+                userObj.save()
+                formSubmitMsg = True
+            else:
+                formSubmitMsg = False
+
+        if formSubmitMsg:
+            messages.error(request, 'Saved Successfully !')
+        else:
+            messages.error(request, 'username must be unique, password should be 8 character and strong!')
+        return redirect('emplList')
+
+    except Exception as e:
+        print(e)
+        messages.error(request, "Unable to upload file. ")
+    return redirect('emplList')
 
 
 @user_passes_test(lambda u: u.is_superuser or u.is_org_admin)
@@ -144,33 +185,6 @@ def activate(request, uidb64, token):
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
-
-
-@login_required
-@transaction.atomic
-def update_profile(request):
-    try:
-        profile = request.user.profile
-    except Profile.DoesNotExist:
-        profile = Profile(user=request.user)
-    if request.method == 'POST':
-        user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            return render(request, 'survey/index.html')
-        else:
-            # messages.error(request, _('Please correct the error below.'))
-            return render(request, 'survey/index.html')
-
-    else:
-        user_form = UserForm(instance=request.user)
-        profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'survey/profile.html', {
-        'user_form': user_form,
-        'profile_form': profile_form
-    })
 
 
 # Questions curds
@@ -255,6 +269,8 @@ def saveSurvey(request):
     if request.method == 'POST':
         surveyObj = Survey()
         surveyObj.name = request.POST['name']
+        surveyObj.s_date = request.POST['s_date']
+        surveyObj.e_date = request.POST['e_date']
         surveyObj.created_by = User.objects.get(id=request.user.id)
         surveyObj.save()
         if request.POST['question_id']:
