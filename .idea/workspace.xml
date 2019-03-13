@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f925c0c4-fa54-46fc-a49c-a1435ef39098" name="Default Changelist" comment="Added Update Functionality">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SurveyApp/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SurveyApp/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/survey/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/survey/migrations/0002_auto_20190205_1134.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/survey/migrations/0003_organization_questions_library_survey_survey_quesmap.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/survey/migrations/0004_ques_choices.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/survey/migrations/0005_auto_20190205_1706.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/survey/migrations/0006_surveyemployeemap.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/survey/migrations/0007_survey_result.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/survey/migrations/0008_auto_20190206_1850.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/survey/migrations/0009_auto_20190207_1815.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/survey/migrations/0010_auto_20190208_1450.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/survey/migrations/0011_auto_20190208_1532.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/survey/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/survey/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/survey/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/survey/views.py" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SurveyApp/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="189">
+              <caret line="115" column="31" lean-forward="true" selection-start-line="115" selection-start-column="31" selection-end-line="115" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/survey/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="508">
+              <caret line="454" lean-forward="true" selection-start-line="454" selection-end-line="454" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/survey/forms.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+              <folding>
+                <element signature="e#0#54#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/survey/templates/survey/survey_questions_list_empl.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1092">
+              <caret line="52" column="44" selection-start-line="52" selection-start-column="44" selection-end-line="52" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/survey/templates/survey/edit_employee.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="15" column="64" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="64" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>delete</find>
+      <find>login</find>
+      <find>profil</find>
+      <find>messages</find>
+      <find>updateEmpl</find>
+      <find>saveAssignSurvey</find>
+      <find>Your Survey Link</find>
+      <find>list-group-item</find>
+      <find>User</find>
+      <find>dependencies</find>
+      <find>AUTH_USER_MODEL</find>
+      <find>user</find>
+      <find>u</find>
+      <find>organization</find>
+      <find>request</find>
+      <find>is_csv_data_valid</find>
+      <find>force_bytes</find>
+      <find>account_activation_token</find>
+      <find>print</find>
+      <find>try</find>
+      <find>LOGGING</find>
+      <find>activate</find>
+      <find>BASE_DIR</find>
+      <find>Hey there it works</find>
+      <find>Hey there it works!!</find>
+      <find>special</find>
+      <find>user_passes_test</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/SurveyApp/urls.py" />
+        <option value="$PROJECT_DIR$/survey/templates/survey/login.html" />
+        <option value="$PROJECT_DIR$/survey/templates/survey/profile.html" />
+        <option value="$PROJECT_DIR$/survey/templates/survey/survey_questions_list.html" />
+        <option value="$PROJECT_DIR$/survey/templates/survey/survey_employee.html" />
+        <option value="$PROJECT_DIR$/survey/templates/survey/survey_questions_result_empl.html" />
+        <option value="$PROJECT_DIR$/survey/templates/survey/survey.html" />
+        <option value="$PROJECT_DIR$/survey/templates/survey/questions.html" />
+        <option value="$PROJECT_DIR$/survey/static/css/simple-sidebar.css" />
+        <option value="$PROJECT_DIR$/survey/templates/survey/organization.html" />
+        <option value="$PROJECT_DIR$/survey/templates/survey/add_questions.html" />
+        <option value="$PROJECT_DIR$/survey/migrations/0002_auto_20190221_1403.py" />
+        <option value="$PROJECT_DIR$/survey/admin.py" />
+        <option value="$PROJECT_DIR$/survey/templates/survey/base.html" />
+        <option value="$PROJECT_DIR$/survey/forms.py" />
+        <option value="$PROJECT_DIR$/survey/templates/survey/signup.html" />
+        <option value="$PROJECT_DIR$/survey/templates/survey/edit_employee.html" />
+        <option value="$PROJECT_DIR$/survey/templates/survey/survey_questions_list_empl.html" />
+        <option value="$PROJECT_DIR$/survey/templates/survey/add_survey.html" />
+        <option value="$PROJECT_DIR$/survey/urls.py" />
+        <option value="$PROJECT_DIR$/survey/templates/survey/employeesList.html" />
+        <option value="$PROJECT_DIR$/survey/commonFucntions.py" />
+        <option value="$PROJECT_DIR$/survey/models.py" />
+        <option value="$PROJECT_DIR$/survey/logs/debug.log" />
+        <option value="$PROJECT_DIR$/survey/views.py" />
+        <option value="$PROJECT_DIR$/SurveyApp/settings.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="260" />
+    <option name="y" value="20" />
+    <option name="width" value="1400" />
+    <option name="height" value="1000" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="SurveyApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SurveyApp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SurveyApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SurveyApp" type="462c0819:PsiDirectoryNode" />
+              <item name="survey" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SurveyApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SurveyApp" type="462c0819:PsiDirectoryNode" />
+              <item name="survey" type="462c0819:PsiDirectoryNode" />
+              <item name="logs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SurveyApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SurveyApp" type="462c0819:PsiDirectoryNode" />
+              <item name="SurveyApp" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../js" />
+    <property name="settings.editor.selected.configurable" value="preferences.externalResources" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Training\Django\SurveyApp\survey\templates\survey" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f925c0c4-fa54-46fc-a49c-a1435ef39098" name="Default Changelist" comment="" />
+      <created>1550032127146</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1550032127146</updated>
+    </task>
+    <task id="LOCAL-00001" summary="updated title">
+      <created>1550032520783</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1550032520783</updated>
+    </task>
+    <task id="LOCAL-00002" summary="updated title">
+      <created>1550212417569</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1550212417569</updated>
+    </task>
+    <task id="LOCAL-00003" summary="updated org tab">
+      <created>1550212586008</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1550212586008</updated>
+    </task>
+    <task id="LOCAL-00004" summary="updated settings">
+      <created>1550213078528</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1550213078528</updated>
+    </task>
+    <task id="LOCAL-00005" summary="added employee list page">
+      <created>1550219669871</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1550219669871</updated>
+    </task>
+    <task id="LOCAL-00006" summary="update finish functionality">
+      <created>1550471795418</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1550471795418</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added Message Functionality">
+      <created>1550474478197</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1550474478197</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added Update Functionality">
+      <created>1550572496157</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1550572496157</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added Org Admin Functionality">
+      <created>1550830727395</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1550830727395</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added Bulk employee add by csv">
+      <created>1551853184465</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1551853184465</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17544784" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32936078" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="updated title" />
+    <MESSAGE value="updated org tab" />
+    <MESSAGE value="updated settings" />
+    <MESSAGE value="added employee list page" />
+    <MESSAGE value="update finish functionality" />
+    <MESSAGE value="Added Message Functionality" />
+    <MESSAGE value="Added Update Functionality" />
+    <MESSAGE value="Added Org Admin Functionality" />
+    <MESSAGE value="Added Bulk employee add by csv" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Bulk employee add by csv" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/survey/templates/survey/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="9" column="15" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/templates/survey/survey_questions_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="19" lean-forward="true" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/templates/survey/profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="15" column="9" lean-forward="true" selection-start-line="10" selection-start-column="2" selection-end-line="15" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/templates/survey/survey_assign.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="81" selection-start-line="4" selection-start-column="65" selection-end-line="4" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/templates/survey/survey_questions_result_empl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/static/css/simple-sidebar.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1071">
+          <caret line="51" column="1" selection-start-line="51" selection-start-column="1" selection-end-line="51" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/templates/survey/questions.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1134">
+          <caret line="54" column="35" selection-start-line="54" selection-start-column="26" selection-end-line="54" selection-end-column="35" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#1;n#form#0;n#div#1;n#div#0;n#div#0;n#div#2;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/templates/survey/organization.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#1;n#form#0;n#div#1;n#div#0;n#div#0;n#div#2;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/templates/survey/survey.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="19" column="129" selection-start-line="19" selection-start-column="129" selection-end-line="19" selection-end-column="129" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/migrations/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/migrations/0002_auto_20190221_1357.py" />
+    <entry file="file://$PROJECT_DIR$/survey/migrations/0003_remove_user_organization.py" />
+    <entry file="file://$PROJECT_DIR$/survey/migrations/0012_merge_20190221_1408.py" />
+    <entry file="file://$PROJECT_DIR$/survey/migrations/0002_auto_20190205_1134.py" />
+    <entry file="file://$PROJECT_DIR$/survey/migrations/0005_auto_20190205_1706.py" />
+    <entry file="file://$PROJECT_DIR$/survey/migrations/0008_auto_20190206_1850.py" />
+    <entry file="file://$PROJECT_DIR$/survey/migrations/0009_auto_20190207_1815.py" />
+    <entry file="file://$PROJECT_DIR$/survey/migrations/0010_auto_20190208_1450.py" />
+    <entry file="file://$PROJECT_DIR$/survey/migrations/0002_auto_20190221_1403.py" />
+    <entry file="file://$PROJECT_DIR$/survey/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1386" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/templates/survey/signup.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="21" column="20" lean-forward="true" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+          <folding>
+            <element signature="n#style#0;n#p#1;n#form#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#p#2;n#form#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/templates/survey/add_questions.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="29" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/templates/survey/survey_employee.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="24" column="14" lean-forward="true" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/templates/survey/add_survey.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="30" column="13" lean-forward="true" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/commonFucntions.py" />
+    <entry file="file://$PROJECT_DIR$/survey/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/templates/survey/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="693">
+          <caret line="33" column="43" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/templates/survey/survey_questions_list_empl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1092">
+          <caret line="52" column="44" selection-start-line="52" selection-start-column="44" selection-end-line="52" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/logs/logs.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/templates/survey/employeesList.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" column="41" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logs.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SurveyApp/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="21" column="41" lean-forward="true" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/templates/survey/edit_employee.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="15" column="64" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#54#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/logs/debug.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/survey/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="508">
+          <caret line="454" lean-forward="true" selection-start-line="454" selection-end-line="454" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SurveyApp/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="115" column="31" lean-forward="true" selection-start-line="115" selection-start-column="31" selection-end-line="115" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

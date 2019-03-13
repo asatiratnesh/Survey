@@ -1,0 +1,32 @@
+[13/Mar/2019 11:58:15] DEBUG [django.db.backends:111] (0.016) 
+            SELECT c.relname, c.relkind
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid); args=None
+[13/Mar/2019 11:58:15] DEBUG [django.db.backends:111] (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+[13/Mar/2019 11:58:19] DEBUG [django.db.backends:111] (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2019-03-13T06:28:18.998728+00:00'::timestamptz AND "django_session"."session_key" = 'vwews02tri7nqh0rg960645u4970i3rs'); args=(datetime.datetime(2019, 3, 13, 6, 28, 18, 998728, tzinfo=<UTC>), 'vwews02tri7nqh0rg960645u4970i3rs')
+[13/Mar/2019 11:58:19] DEBUG [django.db.backends:111] (0.000) SELECT "survey_user"."id", "survey_user"."password", "survey_user"."last_login", "survey_user"."is_superuser", "survey_user"."username", "survey_user"."first_name", "survey_user"."last_name", "survey_user"."email", "survey_user"."is_staff", "survey_user"."is_active", "survey_user"."date_joined", "survey_user"."is_org_admin", "survey_user"."is_employee", "survey_user"."organization_id" FROM "survey_user" WHERE "survey_user"."id" = 18; args=(18,)
+[13/Mar/2019 11:58:19] DEBUG [django.db.backends:111] (0.000) SELECT "Questions_library"."id", "Questions_library"."type", "Questions_library"."title", "Questions_library"."created_by_id", "Questions_library"."created_at", "Questions_library"."updated_at" FROM "Questions_library" WHERE "Questions_library"."created_by_id" = 18; args=(18,)
+[13/Mar/2019 11:58:20] DEBUG [django.db.backends:111] (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2019-03-13T06:28:19.998261+00:00'::timestamptz AND "django_session"."session_key" = 'vwews02tri7nqh0rg960645u4970i3rs'); args=(datetime.datetime(2019, 3, 13, 6, 28, 19, 998261, tzinfo=<UTC>), 'vwews02tri7nqh0rg960645u4970i3rs')
+[13/Mar/2019 11:58:20] DEBUG [django.db.backends:111] (0.000) SELECT "survey_user"."id", "survey_user"."password", "survey_user"."last_login", "survey_user"."is_superuser", "survey_user"."username", "survey_user"."first_name", "survey_user"."last_name", "survey_user"."email", "survey_user"."is_staff", "survey_user"."is_active", "survey_user"."date_joined", "survey_user"."is_org_admin", "survey_user"."is_employee", "survey_user"."organization_id" FROM "survey_user" WHERE "survey_user"."id" = 18; args=(18,)
+[13/Mar/2019 11:58:20] DEBUG [django.db.backends:111] (0.000) SELECT "Questions_library"."id", "Questions_library"."type", "Questions_library"."title", "Questions_library"."created_by_id", "Questions_library"."created_at", "Questions_library"."updated_at" FROM "Questions_library" WHERE "Questions_library"."created_by_id" = 18; args=(18,)
+[13/Mar/2019 12:05:20] ERROR [django.server:154] "GET /static/css/simple-sidebar.css HTTP/1.1" 500 59
+[13/Mar/2019 12:05:20] ERROR [django.server:154] "GET /static/css/bootstrap.min.css HTTP/1.1" 500 59
+[13/Mar/2019 12:06:10] WARNING [django.request:228] Not Found: /accounts/login/
+[13/Mar/2019 12:06:10] WARNING [django.server:154] "GET /accounts/login/?next=/organization/ HTTP/1.1" 404 7599
+[13/Mar/2019 12:06:25] WARNING [django.request:228] Not Found: /accounts/login/
+[13/Mar/2019 12:06:25] WARNING [django.server:154] "GET /accounts/login/?next=/organization/ HTTP/1.1" 404 7599
+[13/Mar/2019 12:06:26] WARNING [django.request:228] Not Found: /accounts/login/
+[13/Mar/2019 12:06:26] WARNING [django.server:154] "GET /accounts/login/?next=/organization/ HTTP/1.1" 404 7599
+[13/Mar/2019 12:10:17] WARNING [django.request:228] Not Found: /accounts/login/
+[13/Mar/2019 12:10:17] WARNING [django.server:154] "GET /accounts/login/?next=/organization/ HTTP/1.1" 404 7599
+[13/Mar/2019 12:15:51] WARNING [django.request:228] Not Found: /favicon.ico
+[13/Mar/2019 12:15:51] WARNING [django.server:154] "GET /favicon.ico HTTP/1.1" 404 7567
+[13/Mar/2019 12:16:06] WARNING [django.request:228] Not Found: /accounts/login/
+[13/Mar/2019 12:16:06] WARNING [django.server:154] "GET /accounts/login/?next=/questList HTTP/1.1" 404 7595
+[13/Mar/2019 12:16:10] WARNING [django.request:228] Not Found: /accounts/login/
+[13/Mar/2019 12:16:10] WARNING [django.server:154] "GET /accounts/login/?next=/questList HTTP/1.1" 404 7595
+[13/Mar/2019 12:16:18] WARNING [django.request:228] Not Found: /accounts/login/
+[13/Mar/2019 12:16:18] WARNING [django.server:154] "GET /accounts/login/?next=/surveyList HTTP/1.1" 404 7596
