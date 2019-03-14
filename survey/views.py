@@ -27,11 +27,14 @@ logger = logging.getLogger(__name__)
 def index(request):
     return render(request, 'survey/index.html')
 
+
 def is_user_superuser():
     return lambda u: u.is_superuser
 
+
 def is_user_orgadmin():
     return lambda u: u.is_org_admin
+
 
 def is_user_orgadmin_or_superuser():
     return lambda u: u.is_superuser or u.is_org_admin
@@ -79,6 +82,7 @@ def validate_csv(csv_file):
 def read_post_csv(csv_file):
     csvf = StringIO(csv_file.read().decode())
     return csv.reader(csvf)
+
 
 def isValidEmail(email):
     return bool(re.search(r"^[\w\.\+\-]+\@[\w]+\.[a-z]{2,3}$", email))
@@ -139,7 +143,6 @@ def uploadEmplCSV(request):
 @user_passes_test(is_user_orgadmin_or_superuser())
 @login_required(login_url='login')
 def emplList(request):
-    logger.debug("Hey there it works!!")
     if request.user.is_superuser:
         users = User.objects.filter(is_org_admin=True)
     else:
@@ -222,8 +225,6 @@ def activate(request, uidb64, token):
 @user_passes_test(is_user_orgadmin())
 @login_required(login_url='login')
 def questList(request):
-    logger.debug("Hey there it works!!")
-
     questions_list = Questions_library.objects.filter(created_by=request.user.id)
     return render(request, 'survey/questions.html', {"questions_list": questions_list})
 
