@@ -23,6 +23,7 @@ from . import models
 User = get_user_model()
 logger = logging.getLogger(__name__)
 
+
 @login_required(login_url='login')
 def index(request):
     return render(request, 'survey/index.html')
@@ -47,18 +48,21 @@ def signup(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             try:
-                userObj = form.save(commit=False)
-                userObj.is_active = True
+                user_obj = form.save(commit=False)
+                user_obj.is_active = True
                 if request.user.is_superuser:
-                    userObj.is_org_admin = True
-                    userObj.organization = get_object_or_404(Organization, pk=request.POST['organization'])
+                    user_obj.is_org_admin = True
+                    user_obj.organization = get_object_or_404(Organization, pk=request.POST['organization'])
                 elif request.user.is_org_admin:
-                    userObj.is_employee = True
-                    userObj.organization = request.user.organization
-                userObj.save()
+                    user_obj.is_employee = True
+                    user_obj.organization = request.user.organization
+                user_obj.save()
             except Exception as e:
                 logger.error(e)
                 messages.error(request, 'Error!!!')
+                return redirect('emplList')
+
+            messages.success(request, 'Saved!!!')
             return redirect('emplList')
 
     form = SignupForm()
@@ -329,7 +333,7 @@ def deleteSurvey(request, survey_id):
 @user_passes_test(is_user_orgadmin())
 @login_required(login_url='login')
 def assignSurvey(request, survey_id):
-    user_list = User.objects.filter(organization= request.user.organization, is_org_admin=False)
+    user_list = User.objects.filter(organization=request.user.organization, is_org_admin=False)
     messages.success(request, 'Survey Assign successfully!')
     return render(request, 'survey/survey_assign.html', {"user_list": user_list, "survey_id": survey_id})
 
@@ -339,8 +343,7 @@ def assignSurvey(request, survey_id):
 def saveAssignSurvey(request):
     if request.POST['emp_id']:
         for employee_id in request.POST.getlist('emp_id'):
-            surveyEmployee = SurveyEmployeeMap.objects.filter(survey_id=request.POST['survey_id'],
-                                                           empl_id=employee_id)
+            surveyEmployee = SurveyEmployeeMap.objects.filter(survey_id=request.POST['survey_id'], empl_id=employee_id)
             if not surveyEmployee:
                 surveyEmployeeMapObj = SurveyEmployeeMap()
                 surveyEmployeeMapObj.survey_id = get_object_or_404(Survey, pk=request.POST['survey_id'])
@@ -395,7 +398,8 @@ def surveyQuestEmployee(request, survey_id):
 
     choices = ques_choices.objects.filter(questions_id__in=question_ids)
 
-    answer_list = Survey_Result.objects.filter(question_id__in=question_ids, survey_id=survey_id, empl_id=User.objects.get(id=request.user.id))
+    answer_list = Survey_Result.objects.filter(question_id__in=question_ids, survey_id=survey_id,
+                                               empl_id=User.objects.get(id=request.user.id))
     paginator = Paginator(survey_questions_list, 3)
     page = request.GET.get('page')
     survey_questions = paginator.get_page(page)
@@ -424,18 +428,15 @@ def saveSurveyAnswers(request, survey_id):
                 else:
                     if request.POST[name]:
                         person, created = Survey_Result.objects.get_or_create(survey=Survey.objects.get(id=survey_id),
-                                                                          empl=User.objects.get(id=request.user.id),
-                                                                          question=Questions_library.objects.get(id=name),
-                                                                          defaults={"answer": request.POST[name],
-                                                                                    "answer_status": True})
-
+                            empl=User.objects.get(id=request.user.id),
+                            question=Questions_library.objects.get(id=name),
+                            defaults={"answer": request.POST[name], "answer_status": True})
 
                 if len(request.POST) == count:
                     try:
                         employee = User.objects.get(id=request.user.id)
                         email_body = "Hi, \nThank you for completing your Survey \n\nYour completed survey Link: " + request.build_absolute_uri(
-                            '/')[:-1].strip("/") + "/" + \
-                                     survey_id + "/surveyQuestResultEmployee/"
+                            '/')[:-1].strip("/") + "/" + survey_id + "/surveyQuestResultEmployee/"
                         email = EmailMessage(
                             'Survey Completed', email_body, to=[employee.email]
                         )
@@ -448,9 +449,8 @@ def saveSurveyAnswers(request, survey_id):
             else:
                 if request.POST[name]:
                     person, created = Survey_Result.objects.get_or_create(survey=Survey.objects.get(id=survey_id),
-                                                              empl=User.objects.get(id=request.user.id),
-                                                              question=Questions_library.objects.get(id=name),
-                                                              defaults={"answer": request.POST[name], "answer_status": False})
+                          empl=User.objects.get(id=request.user.id), question=Questions_library.objects.get(id=name),
+                          defaults={"answer": request.POST[name], "answer_status": False})
     return redirect(str(survey_id) + '/surveyQuestEmployee/' + '?page=' + page)
 
 
