@@ -22,17 +22,7 @@
         {% endfor %}
       </p>
       {% endfor %}
-    {% if request.user.is_superuser %}
-    <p>
-        <label>Organization:</label><br>
-       <select name="organization" style="padding: 3px 8px; min-width: 185px;">
-           <option value="">Select organization</option>
-           {% for organization in org_list %}
-              <option value="{{organization.id}}">{{organization}}</option>
-           {% endfor %}
-      </select>
-    </p>
-    {% endif %}
+
     <button type="submit" class="btn btn-primary">Save</button>
   </form>
 {% endblock %}

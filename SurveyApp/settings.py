@@ -26,7 +26,7 @@ SECRET_KEY = '5-yen24byhqcg8tuvz$96ivg1^-i03v1na%#r8bd%#g#@movxl'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+SITE_ID = 1
 
 # Application definition
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'survey',
     'import_export',
+    'django.contrib.sites'
 ]
 
 MIDDLEWARE = [
@@ -112,8 +113,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = '*****'
-EMAIL_HOST_PASSWORD = '*******'
+EMAIL_HOST_USER = 'asatiratnesh88@gmail.com'
+EMAIL_HOST_PASSWORD = 'rajesh.asati'
 EMAIL_PORT = 587
 
 # Internationalization
@@ -164,7 +165,7 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['logfile', 'console'],
+            'handlers': ['logfile'],
             'level': 'DEBUG',
             'propagate': True,
         },

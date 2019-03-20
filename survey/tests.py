@@ -1,20 +1,28 @@
+"""
+All test cases of survey app
+"""
 from django.test import TestCase
-from django_webtest import WebTest
 from django.urls import reverse
-from survey.views import isValidEmail
-from .models import Organization, User, Questions_library, ques_choices, Survey, Survey_QuesMap, SurveyEmployeeMap, Survey_Result
+from .models import Organization, User, Questions_library,\
+    ques_choices, Survey, Survey_QuesMap, SurveyEmployeeMap, Survey_Result
+from .views import is_valid_email
+
 
 class ModelsTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         Organization.objects.create(name='Harbinger')
-        User.objects.create(password='Harbinger', is_superuser=False, username='testuser', email='ratnesh@gmail.com')
+        User.objects.create(password='1X<ISRUkw+tuK', is_superuser=False, username='testuser1',
+                            email='ratnesh@gmail.com', is_org_admin=True, is_active=True)
         Questions_library.objects.create(type='1', title='your age?')
         ques_choices.objects.create(questions=Questions_library.objects.get(id=1), choice='yes')
         Survey.objects.create(name='survey_1', s_date='2019-02-28', e_date='2019-03-28')
-        Survey_QuesMap.objects.create(survey_id=Survey.objects.get(id=1), question_id=Questions_library.objects.get(id=1))
-        SurveyEmployeeMap.objects.create(survey_id=Survey.objects.get(id=1), empl_id=User.objects.get(id=1))
-        Survey_Result.objects.create(survey=Survey.objects.get(id=1), empl=User.objects.get(id=1), question=Questions_library.objects.get(id=1),
+        Survey_QuesMap.objects.create(survey_id=Survey.objects.get(id=1),
+                                      question_id=Questions_library.objects.get(id=1))
+        SurveyEmployeeMap.objects.create(survey_id=Survey.objects.get(id=1),
+                                         empl_id=User.objects.get(id=1), created_by=User.objects.get(id=1))
+        Survey_Result.objects.create(survey=Survey.objects.get(id=1), empl=User.objects.get(id=1),
+                                     question=Questions_library.objects.get(id=1),
                                      answer='yes', answer_status=False)
 
     def test_organization_is_instance(self):
@@ -82,11 +90,11 @@ class ModelsTest(TestCase):
         expected_object_name = survey.name
         self.assertEquals(expected_object_name, str(survey))
 
-    def test_survey_quesMap_is_instance(self):
+    def test_survey_ques_map_is_instance(self):
         survey_ques_map = Survey_QuesMap.objects.get(id=1)
         self.assertIsInstance(survey_ques_map, Survey_QuesMap)
 
-    def test_survey_quesMap_title_label(self):
+    def test_survey_ques_map_title_label(self):
         survey_ques_map = Survey_QuesMap.objects.get(id=1)
         type_field = survey_ques_map._meta.get_field('survey_id').verbose_name
         self.assertEquals(type_field, 'survey id')
@@ -95,7 +103,7 @@ class ModelsTest(TestCase):
         survey_employee_map = SurveyEmployeeMap.objects.get(id=1)
         self.assertIsInstance(survey_employee_map, SurveyEmployeeMap)
 
-    def test_survey_quesMap_title_label(self):
+    def test_survey_employe_map_title_label(self):
         survey_employee_map = SurveyEmployeeMap.objects.get(id=1)
         type_field = survey_employee_map._meta.get_field('survey_id').verbose_name
         self.assertEquals(type_field, 'survey id')
@@ -104,14 +112,37 @@ class ModelsTest(TestCase):
         survey_result = Survey_Result.objects.get(id=1)
         self.assertIsInstance(survey_result, Survey_Result)
 
-    def test_survey_quesMap_title_label(self):
+    def test_survey_result_title_label(self):
         survey_result = Survey_Result.objects.get(id=1)
         type_field = survey_result._meta.get_field('answer').verbose_name
         self.assertEquals(type_field, 'answer')
 
 
-
 class ViewsTestCase(TestCase):
 
-    def test_emailID(self):
-        self.assertTrue(isValidEmail("ratnesh@gmail.com"))
+    def test_email_id(self):
+        self.assertTrue(is_valid_email("ratnesh@gmail.com"))
+
+    def setUp(self):
+        test_user_superuser = User.objects.create_user(username='test_user_su', password='1X<ISRUkw+tuK',
+                                             is_superuser=True)
+        test_user_superuser.save()
+
+        test_user_org_admin = User.objects.create_user(username='test_user_od', password='1X<ISRUkw+tuK',
+                                                       is_org_admin=True)
+        test_user_org_admin.save()
+
+    def test_logged_in_uses_quest_list_template(self):
+        self.client.login(username='test_user_od', password='1X<ISRUkw+tuK')
+        response = self.client.get(reverse('questList'))
+        self.assertEqual(str(response.context['user']), 'test_user_od')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'survey/questions.html')
+
+    def test_logged_in_uses_organization_template(self):
+        self.client.login(username='test_user_su', password='1X<ISRUkw+tuK')
+        response = self.client.get(reverse('organization'))
+        self.assertEqual(str(response.context['user']), 'test_user_su')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'survey/organization.html')
+
