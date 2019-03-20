@@ -1,1 +1,6 @@
 SurveyApp/__pycache__
+survey/__pycache__
+survey/management/__pycache__
+survey/management/commands/__pycache__
+survey/logs
+.idea
