@@ -9,6 +9,8 @@
     </div>
 {% endif %}
     <br></br>
+<h4 >Welcome, {{request.user.first_name}}</h4>
+</br>
 <div class="row">
     <div class="col-md-4">
         <h6>Your Assigned Survey</h6>
@@ -17,7 +19,13 @@
                 {% if survey_list_assign_empl %}
                     {% for survey in survey_list_assign_empl %}
                         <li class="list-group-item">
-                            <a href="{% url 'surveyQuestEmployee' survey.survey_id_id %}"> {{ survey.survey_id }}</a>
+                            {% if survey.survey_id.s_date <= today_date and today_date <= survey.survey_id.e_date %}
+                                <a href="{% url 'surveyQuestEmployee' survey.survey_id_id %}">{{ survey.survey_id }}</a></br>
+                                <strong>Period:</strong> from <i>{{survey.survey_id.s_date}}</i> to <i>{{survey.survey_id.e_date}}</i>
+                            {% else %}
+                                <span>{{ survey.survey_id }}</span></br>
+                                <strong>Period:</strong> from <i>{{survey.survey_id.s_date}}</i> to <i>{{survey.survey_id.e_date}}</i>
+                            {% endif %}
                         </li>
                     {% endfor %}
                 {% endif %}
@@ -32,7 +40,13 @@
                 {% if survey_list_pending_empl %}
                     {% for survey in survey_list_pending_empl %}
                         <li class="list-group-item">
-                            <a href="{% url 'surveyQuestEmployee' survey.survey_id_id %}"> {{ survey.survey_id }}</a>
+                            {% if survey.survey_id.s_date <= today_date and today_date <= survey.survey_id.e_date %}
+                                <a href="{% url 'surveyQuestEmployee' survey.survey_id_id %}">{{ survey.survey_id }}</a></br>
+                                <strong>Period:</strong> from <i>{{survey.survey_id.s_date}}</i> to <i>{{survey.survey_id.e_date}}</i>
+                            {% else %}
+                                <span>{{ survey.survey_id }}</span></br>
+                                <strong>Period:</strong> from <i>{{survey.survey_id.s_date}}</i> to <i>{{survey.survey_id.e_date}}</i>
+                            {% endif %}
                         </li>
                     {% endfor %}
                 {% endif %}
@@ -47,7 +61,8 @@
                 {% if survey_list_complete_empl %}
                     {% for survey in survey_list_complete_empl %}
                         <li class="list-group-item">
-                            <a href="{% url 'surveyQuestResultEmployee' survey.survey_id_id %}"> {{ survey.survey_id }}</a>
+                            <a href="{% url 'surveyQuestResultEmployee' survey.survey_id_id %}">{{ survey.survey_id }}</a></br>
+                            <strong>Period:</strong> from <i>{{survey.survey_id.s_date}}</i> to <i>{{survey.survey_id.e_date}}</i>
                         </li>
                     {% endfor %}
                 {% endif %}

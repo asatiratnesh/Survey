@@ -4,10 +4,23 @@
     <table class="table">
         <thead>
           <tr>
-            <th>total</th>
+              <th>Employee Name</th>
+              <th>Survey Name</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Status</th>
           </tr>
         </thead>
         <tbody>
+        {% for data in report_list %}
+            <tr>
+                <td>{{data.empl}}</td>
+                <td>{{data.survey}}</td>
+                <td>{{data.s_date}}</td>
+                <td>{{data.e_date}}</td>
+                <td>{{data.status}}</td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 {% endblock %}

@@ -1,7 +1,3 @@
-# pylint: disable=invalid-name
-# pylint: disable=broad-except
-# pylint: disable=missing-docstring
-# pylint: disable=no-member
 """
 notification
 """
@@ -49,7 +45,7 @@ class Command(BaseCommand):
                 subject = 'You have a new survey in your dashboard.'
                 body = "Hello {},\n\n".format(empl.username)
                 body += "You have a new survey in your dashboard.\n"
-                body += "Please login to survey management and complete your survey.\n"
+                body += "Please login to survey management and complete your survey.\n\n"
                 body += "Thanks,\n{}".format("Employee Survey Department")
                 email = EmailMessage(
                     subject, body, to=[empl.email]
@@ -68,7 +64,7 @@ class Command(BaseCommand):
                 subject = 'Survey assigned to you ending tomorrow.'
                 body = "Hello {},\n\n".format(empl.username)
                 body += "Survey in your dashboard ending tomorrow.\n"
-                body += "Please login to survey management and complete your survey.\n"
+                body += "Please login to survey management and complete your survey.\n\n"
                 body += "Thanks,\n{}".format("Employee Survey Department")
                 email = EmailMessage(
                     subject, body, to=[empl.email]
@@ -86,7 +82,7 @@ class Command(BaseCommand):
                 subject = 'Survey assigned to you was ended.'
                 body = "Hello {},\n\n ".format(empl.username)
                 body += "Survey in your dashboard ended.\n"
-                body += "Please login to survey management and complete your survey.\n"
+                body += "Please login to survey management and complete your survey.\n\n"
                 body += "Thanks,\n{}".format("Employee Survey Department")
                 email = EmailMessage(
                     subject, body, to=[empl.email]

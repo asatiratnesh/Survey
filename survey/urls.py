@@ -32,6 +32,7 @@ urlpatterns = [
     path('surveyList', views.survey_list, name='surveyList'),
     url(r'^addSurvey', views.add_survey, name='addSurvey'),
     path('saveSurvey/', views.save_survey, name='saveSurvey'),
+    path('schedule_survey/', views.schedule_survey, name='schedule_survey'),
     url(r'^(?P<survey_id>[0-9]+)/surveyQuest/$', views.survey_quest, name='surveyQuest'),
     url(r'^(?P<survey_id>[0-9]+)/assignSurvey/$', views.assign_survey, name='assignSurvey'),
     url(r'^(?P<survey_id>[0-9]+)/deleteSurvey/$', views.delete_survey, name='deleteSurvey'),

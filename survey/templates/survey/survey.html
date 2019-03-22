@@ -15,7 +15,8 @@
             {% for survey in survey_list %}
                 <li class="list-group-item">
                     <a href="{% url 'surveyQuest' survey.id %}"> {{ survey.name }}</a>
-                    <div class="text-right" style="float: right;">
+                    <div class="text-right" style="float: right;" data-id="{{ survey.id }}">
+                        <a href="#" id="edit-btn" data-toggle="modal" data-target="#schedule"><span class="fa fa-clock-o text-right text-success"></span></a>
                         <a href="{% url 'assignSurvey' survey.id %}"><span class="fa fa-share text-right"></span></a>
                         <a href="{% url 'deleteSurvey' survey.id %}"><span class="fa fa-trash text-right text-danger"></span></a>
                     </div>
@@ -23,4 +24,44 @@
             {% endfor %}
         </ul>
     </div>
+
+
+    <!-- Modal -->
+      <div class="modal fade" id="schedule" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Schedule Survey</h5>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="" id="schedule-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="survey_id" name="survey_id">
+                        <label class="control-label col-sm-10" >Start Date:</label>
+                        <div class="col-sm-12">
+                          <input type="date" class="form-control" name="s_date">
+                        </div>
+
+                        <label class="control-label col-sm-10" >End Date:</label>
+                        <div class="col-sm-12">
+                          <input type="date" class="form-control" name="e_date">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" style="float:right">Close</button>
+                </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+<script>
+    $('.fa-clock-o').click(function(){
+        survey_id = $(this).parent().parent().attr('data-id');
+        $('#schedule-form #survey_id').val(survey_id);
+        $('#schedule-form').attr('action', "{% url 'schedule_survey' %}");
+    });
+</script>
 {% endblock %}

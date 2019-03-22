@@ -4,6 +4,7 @@ All views of Survey Project
 import csv
 from io import StringIO
 import re
+import datetime
 import logging
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -28,7 +29,11 @@ logger = logging.getLogger(__name__)
 
 @login_required(login_url='login')
 def index(request):
-    return render(request, 'survey/index.html')
+    if request.user.is_employee:
+        return redirect('surveyListEmployee')
+    else:
+        return render(request, 'survey/index.html')
+
 
 
 # check user is superuser
@@ -326,8 +331,6 @@ def save_survey(request):
     if request.method == 'POST':
         survey_obj = Survey()
         survey_obj.name = request.POST['name']
-        survey_obj.s_date = request.POST['s_date']
-        survey_obj.e_date = request.POST['e_date']
         survey_obj.created_by = User.objects.get(id=request.user.id)
         survey_obj.save()
         if request.POST['question_id']:
@@ -338,6 +341,17 @@ def save_survey(request):
                 survey_ques_map_obj.created_by = User.objects.get(id=request.user.id)
                 survey_ques_map_obj.save()
         messages.success(request, 'Added successfully!')
+        return redirect('surveyList')
+
+
+@user_passes_test(is_user_orgadmin())
+@login_required(login_url='login')
+def schedule_survey(request):
+    if request.method == 'POST':
+        Survey.objects.filter(id=request.POST['survey_id']).update(
+            s_date=request.POST['s_date'], e_date=request.POST['e_date'])
+
+        messages.success(request, 'Saved successfully!')
         return redirect('surveyList')
 
 
@@ -376,7 +390,7 @@ def save_assign_survey(request):
                 user_obj = get_object_or_404(User, pk=employee_id)
                 to_email = user_obj.email
                 try:
-                    email_body = "Hi, \nYour Survey Link: "+\
+                    email_body = "Hi, \nYour new assign survey link: "+\
                                  request.build_absolute_uri('/')[:-1].strip("/")+\
                                  "/"+request.POST['survey_id']+"/surveyQuestEmployee/"
                     email = EmailMessage(
@@ -413,7 +427,8 @@ def survey_list_employee(request):
     return render(request, 'survey/survey_employee.html',
                   {"survey_list_assign_empl": survey_list_assign_empl,
                    "survey_list_complete_empl": survey_list_complete_empl,
-                   "survey_list_pending_empl":survey_list_pending_empl})
+                   "survey_list_pending_empl": survey_list_pending_empl,
+                   "today_date": datetime.date.today()})
 
 
 @login_required(login_url='login')
@@ -427,7 +442,7 @@ def survey_quest_employee(request, survey_id):
 
     answer_list = Survey_Result.objects.filter(question_id__in=question_ids, survey_id=survey_id,
                                                empl_id=User.objects.get(id=request.user.id))
-    paginator = Paginator(survey_questions_list, 3)
+    paginator = Paginator(survey_questions_list, 5)
     page = request.GET.get('page')
     survey_questions = paginator.get_page(page)
 
@@ -493,7 +508,7 @@ def save_survey_answers(request, survey_id):
 def survey_quest_result_employee(request, survey_id):
     survey_result_quest = Survey_Result.objects.filter(
         survey=survey_id, empl=User.objects.get(id=request.user.id))
-    paginator = Paginator(survey_result_quest, 4)
+    paginator = Paginator(survey_result_quest, 5)
     page = request.GET.get('page')
     result_quest = paginator.get_page(page)
     return render(request, "survey/survey_questions_result_empl.html",
@@ -502,11 +517,34 @@ def survey_quest_result_employee(request, survey_id):
 
 @login_required(login_url='login')
 def reports(request):
-    total_no_survey = SurveyEmployeeMap.objects.filter(created_by=User.objects.get(id=request.user.id)).count()
-    # complete_no_survey = Survey_Result.objects.filter(survey_id__created_by=
-    #                                                   User.objects.get(id=request.user.id), answer_status=False)
+    survey_list_empl = SurveyEmployeeMap.objects.all()
+    report_list = list()
+    report_data = dict()
+    for survey in survey_list_empl:
+        survey_item = Survey_Result.objects.filter(
+            survey=Survey.objects.get(id=survey.survey_id_id)).count()
+        if survey_item:
+            if Survey_Result.objects.filter(survey=Survey.objects.get(id=survey.survey_id_id),
+                                            answer_status=True).count():
+                report_data['survey'] = survey.survey_id.name
+                report_data['empl'] = survey.empl_id.username
+                report_data['s_date'] = survey.survey_id.s_date
+                report_data['e_date'] = survey.survey_id.e_date
+                report_data['status'] = 'completed'
+            else:
+                report_data['survey'] = survey.survey_id.name
+                report_data['empl'] = survey.empl_id.username
+                report_data['s_date'] = survey.survey_id.s_date
+                report_data['e_date'] = survey.survey_id.e_date
+                report_data['status'] = 'uncompleted'
+        else:
+            report_data['survey'] = survey.survey_id.name
+            report_data['empl'] = survey.empl_id.username
+            report_data['s_date'] = survey.survey_id.s_date
+            report_data['e_date'] = survey.survey_id.e_date
+            report_data['status'] = 'not attempted'
 
-    print("+++++++++++++1111111111", total_no_survey)
+        report_list.append(report_data)
     return render(request, "survey/reports.html",
-                  {"total_no_survey": total_no_survey})
+                  {"report_list": report_list})
 

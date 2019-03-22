@@ -50,3 +50,6 @@ body {
 .list-group-item a{
     padding: 0 5px;
 }
+.fa{
+    font-size: 18px !important;
+}
