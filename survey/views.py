@@ -515,17 +515,19 @@ def survey_quest_result_employee(request, survey_id):
                   {"survey_result_quest": result_quest})
 
 
+@user_passes_test(is_user_orgadmin())
 @login_required(login_url='login')
 def reports(request):
-    survey_list_empl = SurveyEmployeeMap.objects.all()
+    survey_list_empl = SurveyEmployeeMap.objects.filter(
+        empl_id_id__organization_id=Organization.objects.get(id=request.user.organization_id))
     report_list = list()
-    report_data = dict()
     for survey in survey_list_empl:
-        survey_item = Survey_Result.objects.filter(
-            survey=Survey.objects.get(id=survey.survey_id_id)).count()
-        if survey_item:
+        report_data = dict()
+        if Survey_Result.objects.filter(survey=Survey.objects.get(id=survey.survey_id_id),
+                                        empl=User.objects.get(id=survey.empl_id_id)).count():
             if Survey_Result.objects.filter(survey=Survey.objects.get(id=survey.survey_id_id),
-                                            answer_status=True).count():
+                                            empl=User.objects.get(id=survey.empl_id_id),
+                                            answer_status=True).exists():
                 report_data['survey'] = survey.survey_id.name
                 report_data['empl'] = survey.empl_id.username
                 report_data['s_date'] = survey.survey_id.s_date
