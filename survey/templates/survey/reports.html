@@ -18,7 +18,13 @@
                 <td>{{data.survey}}</td>
                 <td>{{data.s_date}}</td>
                 <td>{{data.e_date}}</td>
-                <td>{{data.status}}</td>
+                {% if data.status == "not attempted" %}
+                    <td class="text-warning">{{data.status}}</td>
+                {% elif data.status == "uncompleted" %}
+                    <td class="text-danger">{{data.status}}</td>
+                {% else %}
+                    <td class="text-success">{{data.status}}</td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

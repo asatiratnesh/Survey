@@ -22,22 +22,22 @@
 <body>
   <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Survey App</div>
+    <div class="border-right sidebar-wrapper" id="sidebar-wrapper">
+      <div class="sidebar-heading">Survey Application</div>
       <div class="list-group list-group-flush">
         {% if user.is_authenticated %}
           {% if request.user.is_superuser %}
             <!--<a href="{% url 'admin:index' %}" class="list-group-item list-group-item-action bg-light" target="_blank">Django Admin</a>-->
-            <a href="{% url 'organization' %}" class="list-group-item list-group-item-action bg-light">Organization</a>
+            <a href="{% url 'organization' %}" class="list-group-item list-group-item-action">Organization</a>
 
-            <a href="{% url 'emplList' %}" class="list-group-item list-group-item-action bg-light">Organization Admin</a>
+            <a href="{% url 'emplList' %}" class="list-group-item list-group-item-action">Organization Admin</a>
           {% elif request.user.is_org_admin %}
-            <a href="{% url 'emplList' %}" class="list-group-item list-group-item-action bg-light">Employee</a>
-            <a href="{% url 'questList' %}" class="list-group-item list-group-item-action bg-light">Questions</a>
-            <a href="{% url 'surveyList' %}" class="list-group-item list-group-item-action bg-light">Survey</a>
-            <a href="{% url 'reports' %}" class="list-group-item list-group-item-action bg-light">Reports</a>
+            <a href="{% url 'emplList' %}" class="list-group-item list-group-item-action">Employee</a>
+            <a href="{% url 'questList' %}" class="list-group-item list-group-item-action">Questions</a>
+            <a href="{% url 'surveyList' %}" class="list-group-item list-group-item-action">Survey</a>
+            <a href="{% url 'reports' %}" class="list-group-item list-group-item-action">Reports</a>
           {% else %}
-            <a href="{% url 'surveyListEmployee' %}" class="list-group-item list-group-item-action bg-light">Your Survey</a>
+            <a href="{% url 'surveyListEmployee' %}" class="list-group-item list-group-item-action">Your Survey</a>
           {% endif %}
         {% endif %}
 
@@ -48,7 +48,7 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      <nav class="navbar navbar-expand-lg navbar-light border-bottom">
         <a id="menu-toggle"><i class="fa fa-bars"></i> </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,11 +62,11 @@
                 <p>Welcome, {{ user.get_username }}</p>
               </li>
               <li class="nav-item active">
-                <a href="{% url 'logout' %}">Logout</a>
+                <a href="{% url 'logout' %}" class="sign">Logout</a>
               </li>
             {% else %}
               <li class="nav-item active">
-                  <a href="{% url 'login' %}">Login</a>
+                  <a href="{% url 'login' %}" class="sign">Login</a>
               </li>
             {% endif %}
           </ul>

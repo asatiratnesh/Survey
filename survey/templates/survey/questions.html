@@ -10,13 +10,14 @@
 {% endif %}
     <a class="btn btn-primary" href="{% url 'addQuest' %}">Add Questions</a>
     <br></br>
+    <h5>Questions List</h5>
     <div class="card">
         <ul class="list-group">
             {% for question in questions_list %}
                 <li class="list-group-item" data-id="{{ question.id }}" data-name="{{ question.title }}">{{ question.title }}
                     <div class="text-right" style="float: right;">
                         <a href="#" id="edit-btn" data-toggle="modal" data-target="#edit"><span class="fa fa-pencil text-right"></span></a>
-                        <a href="{% url 'deleteQuestion' question.id %}"><span class="fa fa-trash text-right text-danger"></span></a>
+                        <a href="{% url 'deleteQuestion' question.id %}" onclick="return confirm('Are you sure you want to delete this item?');"><span class="fa fa-trash text-right text-danger"></span></a>
                     </div>
                 </li>
             {% endfor %}
