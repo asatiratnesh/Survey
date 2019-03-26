@@ -35,7 +35,6 @@ def index(request):
         return render(request, 'survey/index.html')
 
 
-
 # check user is superuser
 def is_user_superuser():
     return lambda u: u.is_superuser
@@ -208,9 +207,15 @@ def organization(request):
         messages.success(request, 'Saved successfully!')
         return redirect('organization')
     else:
-        org_list = Organization.objects.all()
+        org_list = Organization.objects.filter(is_active=True)
         return render(request, 'survey/organization.html', {"org_list": org_list})
 
+
+@user_passes_test(is_user_superuser())
+@login_required(login_url='login')
+def organization_archive(request):
+    org_list = Organization.objects.filter(is_active=False)
+    return render(request, 'survey/organization_archive.html', {"org_list": org_list})
 
 @user_passes_test(is_user_superuser())
 @login_required(login_url='login')
@@ -222,11 +227,16 @@ def update_org(request):
 
 @user_passes_test(is_user_superuser())
 @login_required(login_url='login')
-def delete_org(request, org_id):
-    org = get_object_or_404(Organization, pk=org_id)
-    org.delete()
-    messages.success(request, 'Deleted successfully!')
+def archive_org(request, org_id):
+    Organization.objects.filter(id=org_id).update(is_active=False)
     return redirect('organization')
+
+
+@user_passes_test(is_user_superuser())
+@login_required(login_url='login')
+def restore_org(request, org_id):
+    Organization.objects.filter(id=org_id).update(is_active=True)
+    return redirect('organization_archive')
 
 
 @login_required(login_url='login')

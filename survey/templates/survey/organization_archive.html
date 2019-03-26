@@ -1,0 +1,24 @@
+{% extends 'survey/base.html' %}
+
+{% block content %}
+{% if messages %}
+    <div class="alert alert-success">
+        {% for message in messages %}
+            <strong>Success!</strong> {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+    <h5>Organizations Archive List</h5>
+    <div class="card">
+        <ul class="list-group">
+            {% for org in org_list %}
+                <li class="list-group-item" data-id="{{ org.id }}" data-name="{{ org }}">{{ org }}
+                    <div class="text-right" style="float: right;">
+                        <a href="{% url 'restore_org' org.id %}" ><span class="fa fa-archive text-right text-success"></span></a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}

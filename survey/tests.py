@@ -20,7 +20,7 @@ class ModelsTest(TestCase):
         Survey_QuesMap.objects.create(survey_id=Survey.objects.get(id=1),
                                       question_id=Questions_library.objects.get(id=1))
         SurveyEmployeeMap.objects.create(survey_id=Survey.objects.get(id=1),
-                                         empl_id=User.objects.get(id=1), created_by=User.objects.get(id=1))
+                                         empl_id=User.objects.get(id=1))
         Survey_Result.objects.create(survey=Survey.objects.get(id=1), empl=User.objects.get(id=1),
                                      question=Questions_library.objects.get(id=1),
                                      answer='yes', answer_status=False)
@@ -124,25 +124,31 @@ class ViewsTestCase(TestCase):
         self.assertTrue(is_valid_email("ratnesh@gmail.com"))
 
     def setUp(self):
-        test_user_superuser = User.objects.create_user(username='test_user_su', password='1X<ISRUkw+tuK',
+        test_user_superuser = User.objects.create_user(username='test_user_super', password='1X<ISRUkw+tuK',
                                              is_superuser=True)
         test_user_superuser.save()
-
-        test_user_org_admin = User.objects.create_user(username='test_user_od', password='1X<ISRUkw+tuK',
+        test_user_org_admin = User.objects.create_user(username='test_user_orgadmin', password='1X<ISRUkw+tuK',
                                                        is_org_admin=True)
         test_user_org_admin.save()
 
+    def test_logged_in_uses_organization_template(self):
+        self.client.login(username='test_user_super', password='1X<ISRUkw+tuK')
+        response = self.client.get(reverse('organization'))
+        self.assertEqual(str(response.context['user']), 'test_user_super')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'survey/organization.html')
+
     def test_logged_in_uses_quest_list_template(self):
-        self.client.login(username='test_user_od', password='1X<ISRUkw+tuK')
+        self.client.login(username='test_user_orgadmin', password='1X<ISRUkw+tuK')
         response = self.client.get(reverse('questList'))
-        self.assertEqual(str(response.context['user']), 'test_user_od')
+        self.assertEqual(str(response.context['user']), 'test_user_orgadmin')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'survey/questions.html')
 
-    def test_logged_in_uses_organization_template(self):
-        self.client.login(username='test_user_su', password='1X<ISRUkw+tuK')
-        response = self.client.get(reverse('organization'))
-        self.assertEqual(str(response.context['user']), 'test_user_su')
+    def test_logged_in_uses_survey_list_template(self):
+        self.client.login(username='test_user_orgadmin', password='1X<ISRUkw+tuK')
+        response = self.client.get(reverse('surveyList'))
+        self.assertEqual(str(response.context['user']), 'test_user_orgadmin')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'survey/organization.html')
+        self.assertTemplateUsed(response, 'survey/survey.html')
 

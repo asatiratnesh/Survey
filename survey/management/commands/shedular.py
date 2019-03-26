@@ -25,10 +25,11 @@ class Command(BaseCommand):
         for survey_data in upcoming:
             try:
                 empl = User.objects.get(pk=survey_data.empl_id.id)
-                subject = 'You have a new survey coming tomorrow.'
-                body = "Hi {},\n\n".format(empl.username)
-                body += "You have a new survey coming tomorrow.\n"
-                body += "Please login to survey management and complete your survey.\n"
+                subject = 'New survey coming tomorrow.'
+                body = "Hi {},\n\n".format(empl.username) +\
+                       "\nYou have a new survey coming tomorrow.\n\n " \
+                       "Please login to survey application and complete your survey.\n" \
+                       "Regards,\n{}".format("Survey Department")
                 email = EmailMessage(
                     subject, body, to=[empl.email]
                 )
@@ -42,11 +43,11 @@ class Command(BaseCommand):
         for survey_data in started:
             try:
                 empl = User.objects.get(pk=survey_data.empl_id.id)
-                subject = 'You have a new survey in your dashboard.'
-                body = "Hello {},\n\n".format(empl.username)
-                body += "You have a new survey in your dashboard.\n"
-                body += "Please login to survey management and complete your survey.\n\n"
-                body += "Thanks,\n{}".format("Employee Survey Department")
+                subject = 'New survey in your dashboard.'
+                body = "Hello {},\n\n".format(empl.username) +\
+                       "\nYou have a new survey in your dashboard.\n\n" \
+                       "Please login to survey application and complete your survey.\n\n" \
+                       "Regards,\n{}".format("Survey Department")
                 email = EmailMessage(
                     subject, body, to=[empl.email]
                 )
@@ -61,11 +62,10 @@ class Command(BaseCommand):
         for survey_data in started:
             try:
                 empl = User.objects.get(pk=survey_data.empl_id.id)
-                subject = 'Survey assigned to you ending tomorrow.'
-                body = "Hello {},\n\n".format(empl.username)
-                body += "Survey in your dashboard ending tomorrow.\n"
-                body += "Please login to survey management and complete your survey.\n\n"
-                body += "Thanks,\n{}".format("Employee Survey Department")
+                subject = 'Survey assigned to ending tomorrow.'
+                body = "Hello {},\n\n".format(empl.username) +\
+                       "Please login to survey application and complete your survey.\n\n" \
+                       "Regards,\n{}".format("Survey Department")
                 email = EmailMessage(
                     subject, body, to=[empl.email]
                 )
@@ -80,10 +80,10 @@ class Command(BaseCommand):
             try:
                 empl = User.objects.get(pk=survey_data.empl_id.id)
                 subject = 'Survey assigned to you was ended.'
-                body = "Hello {},\n\n ".format(empl.username)
-                body += "Survey in your dashboard ended.\n"
-                body += "Please login to survey management and complete your survey.\n\n"
-                body += "Thanks,\n{}".format("Employee Survey Department")
+                body = "Hello {},\n\n ".format(empl.username)+\
+                       "Survey in your dashboard ended.\n" \
+                       "Please login to survey management and complete your survey.\n\n" \
+                       "Regards,\n{}".format("Survey Department")
                 email = EmailMessage(
                     subject, body, to=[empl.email]
                 )

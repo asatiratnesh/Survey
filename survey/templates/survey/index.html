@@ -1,6 +1,10 @@
 {% extends "survey/base.html" %}
 
 {% block content %}
-<h4>Welcome to Survey System</h4>
-
+    <h4 class="wl-ti">Welcome to Survey Application</h4>
+    {% if not request.user.organization.is_active %}
+        {% if not request.user.is_superuser %}
+            <h6> Your organization is inactive now</h6>
+        {% endif %}
+    {% endif %}
 {% endblock %}

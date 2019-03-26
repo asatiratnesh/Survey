@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 # survey app models
 class Organization(models.Model):
     name = models.CharField(max_length=50)
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

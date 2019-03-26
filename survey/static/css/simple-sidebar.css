@@ -99,3 +99,11 @@ a {
     padding: 7px 25px;
     vertical-align: -webkit-baseline-middle;
 }
+.wl-ti{
+    color: #ffffff;
+    text-shadow: 1px 1px 0px #f1f1f1;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-image: linear-gradient(90deg, #431c5d 20%, #e05915 71%, #cdd422 85%);
+    font-size: 20px;
+}

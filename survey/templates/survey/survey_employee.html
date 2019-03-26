@@ -8,11 +8,14 @@
         {% endfor %}
     </div>
 {% endif %}
-<h4 >Welcome, {{request.user.first_name}}</h4>
+<h4 class="wl-ti">Welcome, {{request.user.first_name}}</h4>
+{% if not request.user.organization.is_active %}
+        <h6> Your organization is inactive now</h6>
+{% else %}
 </br>
 <div class="row">
     <div class="col-md-4">
-        <h6>Your Assigned Survey</h6>
+        <h6>Not Attempted Survey</h6>
         <div class="card">
             <ul class="list-group">
                 {% if survey_list_assign_empl %}
@@ -33,7 +36,7 @@
     </div>
 
     <div class="col-md-4">
-        <h6>Your Pending Survey</h6>
+        <h6>Uncompleted Survey</h6>
         <div class="card">
             <ul class="list-group">
                 {% if survey_list_pending_empl %}
@@ -54,7 +57,7 @@
     </div>
 
     <div class="col-md-4">
-        <h6>Your Completed Survey</h6>
+        <h6>Completed Survey</h6>
         <div class="card">
             <ul class="list-group">
                 {% if survey_list_complete_empl %}
@@ -69,5 +72,5 @@
         </div>
     </div>
 </div>
-
+{% endif %}
 {% endblock %}

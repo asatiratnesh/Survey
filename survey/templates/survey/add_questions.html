@@ -1,7 +1,7 @@
 {% extends 'survey/base.html' %}
 
 {% block content %}
-  <h4>Add Questions</h4>
+  <h4>Add Question</h4>
     <form class="form-horizontal" method="post" action="{% url 'saveQuest' %}">
       {% csrf_token %}
       <div class="form-group">

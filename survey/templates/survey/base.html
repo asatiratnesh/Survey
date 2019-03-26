@@ -23,21 +23,24 @@
   <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
     <div class="border-right sidebar-wrapper" id="sidebar-wrapper">
-      <div class="sidebar-heading">Survey Application</div>
+      <div class="sidebar-heading" style="background: #cdd422;">Survey Application</div>
       <div class="list-group list-group-flush">
         {% if user.is_authenticated %}
           {% if request.user.is_superuser %}
             <!--<a href="{% url 'admin:index' %}" class="list-group-item list-group-item-action bg-light" target="_blank">Django Admin</a>-->
             <a href="{% url 'organization' %}" class="list-group-item list-group-item-action">Organization</a>
-
             <a href="{% url 'emplList' %}" class="list-group-item list-group-item-action">Organization Admin</a>
           {% elif request.user.is_org_admin %}
-            <a href="{% url 'emplList' %}" class="list-group-item list-group-item-action">Employee</a>
-            <a href="{% url 'questList' %}" class="list-group-item list-group-item-action">Questions</a>
-            <a href="{% url 'surveyList' %}" class="list-group-item list-group-item-action">Survey</a>
-            <a href="{% url 'reports' %}" class="list-group-item list-group-item-action">Reports</a>
+            {% if request.user.organization.is_active %}
+              <a href="{% url 'emplList' %}" class="list-group-item list-group-item-action">Employee</a>
+              <a href="{% url 'questList' %}" class="list-group-item list-group-item-action">Questions</a>
+              <a href="{% url 'surveyList' %}" class="list-group-item list-group-item-action">Survey</a>
+              <a href="{% url 'reports' %}" class="list-group-item list-group-item-action">Reports</a>
+            {% endif %}
           {% else %}
-            <a href="{% url 'surveyListEmployee' %}" class="list-group-item list-group-item-action">Your Survey</a>
+            {% if request.user.organization.is_active %}
+              <a href="{% url 'surveyListEmployee' %}" class="list-group-item list-group-item-action">Your Survey</a>
+            {% endif %}
           {% endif %}
         {% endif %}
 
