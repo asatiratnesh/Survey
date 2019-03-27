@@ -506,7 +506,7 @@ def save_survey_answers(request, survey_id):
 
             else:
                 if request.POST[name]:
-                    Survey_Result.objects.get_or_create(
+                    Survey_Result.objects.update_or_create(
                         survey=Survey.objects.get(id=survey_id),
                         empl=User.objects.get(id=request.user.id),
                         question=Questions_library.objects.get(id=name),
