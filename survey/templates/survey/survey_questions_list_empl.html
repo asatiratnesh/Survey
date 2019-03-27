@@ -11,9 +11,23 @@
                     {% for question in survey_questions_list %}
                     <li class="list-group-item">{{question.question_id}}<br>
                         {% if answer_list|in_result:question.question_id_id %}
-                            {% for answer in answer_list|in_result:question.question_id_id%}
-                                Answer:  <input type="text" name="{{question.question_id_id}}" class="form-control" value="{{answer}}">
-                            {% endfor %}
+                            {% if choices|in_category:question.question_id_id %}
+                                <ol>
+                                    {% for answer in answer_list|in_result:question.question_id_id%}
+                                        {% for choice in choices|in_category:question.question_id_id%}
+                                            {% if answer|slugify  == choice|slugify  %}
+                                                <li><label><input type="radio" name="{{question.question_id_id}}" value="{{ choice }}" checked> {{choice}}</label></li>
+                                            {% else %}
+                                                <li><label><input type="radio" name="{{question.question_id_id}}" value="{{ choice }}"> {{choice}}</label></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                </ol>
+                            {% else %}
+                                {% for answer in answer_list|in_result:question.question_id_id%}
+                                    <input type="text" name="{{question.question_id_id}}" class="form-control" value="{{answer}}">
+                                {% endfor %}
+                            {% endif %}
                         {% else %}
                             {% if choices|in_category:question.question_id_id %}
                                 <ol>
@@ -43,7 +57,8 @@
         {% if survey_questions_list.has_next %}
             <button type="submit" name="save" class="btn btn-primary pull-right" value="save">Save & Next &raquo;</button>
         {% else %}
-            <button type="submit" name="save" class="btn btn-primary pull-right" value="finish">Submit & Finish</button>
+            <button type="submit" name="save" class="btn btn-primary pull-right" value="finish" style="margin-left:20px">Submit & Finish</button>
+            <button type="submit" name="save" class="btn btn-primary pull-right" value="final_save">Save & Finish</button>
         {% endif %}
         </div>
     </div>

@@ -1,6 +1,15 @@
 {% extends 'survey/base.html' %}
 
 {% block content %}
+    <div class="form-group">
+        <label class="control-label col-sm-3">Filter by Status</label>
+         <select class="form-control col-md-3" id="survey_status">
+             <option>Select Status</option>
+             <option>completed</option>
+             <option>uncompleted</option>
+             <option>not attempted</option>
+        </select>
+    </div>
     <table class="table">
         <thead>
           <tr>
@@ -11,7 +20,7 @@
               <th>Status</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="data-row">
         {% for data in report_list %}
             <tr>
                 <td>{{data.empl}}</td>
@@ -19,14 +28,37 @@
                 <td>{{data.s_date}}</td>
                 <td>{{data.e_date}}</td>
                 {% if data.status == "not attempted" %}
-                    <td class="text-warning">{{data.status}}</td>
+                    <td class="text-warning status_cell">{{data.status}}</td>
                 {% elif data.status == "uncompleted" %}
-                    <td class="text-danger">{{data.status}}</td>
+                    <td class="text-danger status_cell">{{data.status}}</td>
                 {% else %}
-                    <td class="text-success">{{data.status}}</td>
+                    <td class="text-success status_cell">{{data.status}}</td>
                 {% endif %}
             </tr>
         {% endfor %}
         </tbody>
     </table>
+
+<script>
+    $('#survey_status').on('change', function() {
+        var selected_value = this.value;
+        if( selected_value == "Select Status"){
+            $('.data-row tr').each(function(){
+                $(this).show();
+            });
+        }
+        else{
+            $('.status_cell').each(function()
+            {
+                if( $(this).html() != selected_value)
+                {
+                      $(this).parent().hide();
+                }
+                else{
+                     $(this).parent().show();
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}

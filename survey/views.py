@@ -70,6 +70,8 @@ def signup(request):
 
             messages.success(request, 'Saved!!!')
             return redirect('emplList')
+        else:
+            messages.success(request, form.errors)
 
     form = SignupForm()
     org_list = Organization.objects.all()
@@ -503,8 +505,16 @@ def save_survey_answers(request, survey_id):
                         logger.error(exception)
                     messages.success(request, 'Submitted successfully!')
                     return redirect('surveyListEmployee')
-
+            elif request.POST["save"] == "final_save":
+                print(request.POST["save"])
+                Survey_Result.objects.update_or_create(
+                    survey=Survey.objects.get(id=survey_id),
+                    empl=User.objects.get(id=request.user.id),
+                    question=Questions_library.objects.get(id=name),
+                    defaults={"answer": request.POST[name], "answer_status": False})
+                return redirect('surveyListEmployee')
             else:
+                print("fdsss44", request.POST["save"])
                 if request.POST[name]:
                     Survey_Result.objects.update_or_create(
                         survey=Survey.objects.get(id=survey_id),
