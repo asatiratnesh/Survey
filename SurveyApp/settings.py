@@ -113,8 +113,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'asatiratnesh88@gmail.com'
-EMAIL_HOST_PASSWORD = 'rajesh.asati'
+EMAIL_HOST_USER = '******'
+EMAIL_HOST_PASSWORD = '*****'
 EMAIL_PORT = 587
 
 # Internationalization
@@ -136,7 +136,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-LOGIN_REDIRECT_URL = '/home'
+LOGIN_REDIRECT_URL = '/index'
 LOGOUT_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'survey.User'

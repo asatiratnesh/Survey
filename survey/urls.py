@@ -2,16 +2,13 @@
 Survey app url's
 """
 
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls import url
-from django.contrib.auth import views as auth_views
 from survey import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('login/', auth_views.LoginView.as_view(template_name='survey/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='survey/logged_out.html'),
-         name='logout'),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('signup/', views.signup, name='signup'),
     path('assignOrganization/', views.assign_organization, name='assign_organization'),
     path('organization/', views.organization, name='organization'),
@@ -47,6 +44,5 @@ urlpatterns = [
     url(r'(?P<survey_id>[0-9]+)/surveyQuestResultEmployee/$', views.survey_quest_result_employee,
         name='surveyQuestResultEmployee'),
     url(r'^uploadEmplCSV/$', views.upload_empl_csv, name='uploadEmplCSV'),
-
     url(r'^reports/$', views.reports, name='reports'),
 ]
